@@ -1,7 +1,7 @@
 (ns clojure-tictactoe.core
-  (:gen-class))
+  (:require [clojure-tictactoe.tictactoe :as ttt]))
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (println (ttt/welcome))
+  (println (ttt/instructions)))
