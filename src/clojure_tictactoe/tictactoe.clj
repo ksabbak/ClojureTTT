@@ -29,3 +29,7 @@ Examples:
 (defn continue-to-game []
   (println "Press enter key to continue")
   (read-line))
+
+(defn make-board-filler 
+  ([]
+   (into [] (take 9 (range)))))
