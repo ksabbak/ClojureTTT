@@ -14,3 +14,11 @@
 (deftest make-board-filler-with-no-arguments-test
   (testing "make-board-filler with no arguments returns spaces that haven't been marked"
     (is (= (make-board-filler) [0 1 2 3 4 5 6 7 8]))))
+
+(deftest make-board-filler-with-a-move-on-space-0-test
+  (testing "Returns spaces where only the first space has been marked"
+    (is (= (make-board-filler {0 "x"}) ["x" 1 2 3 4 5 6 7 8]))))
+
+(deftest make-board-filler-with-amove-on-multiple-spaces-test
+   (testing "Returns spaces where the appropriate space is marked"
+     (is (= (make-board-filler {3 "x", 7 "o", 2 "x"}) [0 1 "x" "x" 4 5 6 "o" 8]))))
