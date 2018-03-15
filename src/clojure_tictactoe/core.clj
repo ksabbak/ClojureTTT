@@ -3,5 +3,4 @@
 
 (defn -main
   [& args]
-  (println (ttt/welcome))
-  (println (ttt/instructions)))
+  (ttt/intro-game))
