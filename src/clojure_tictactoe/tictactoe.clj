@@ -32,4 +32,8 @@ Examples:
 
 (defn make-board-filler 
   ([]
-   (into [] (take 9 (range)))))
+   (into [] (take 9 (range))))
+  ([taken-spaces]
+   (into [] (map (fn [space] (or (taken-spaces space) space)) (make-board-filler)))))
+
+
