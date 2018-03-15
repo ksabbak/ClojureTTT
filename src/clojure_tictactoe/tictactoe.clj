@@ -19,7 +19,7 @@ Examples:
    | x |     |    |   |     |    |   | x  \n\n ")
 
 
-(defn intro-game []
+(defn print-game-intro []
   (println welcome-message)
   (println instructions-message))
 

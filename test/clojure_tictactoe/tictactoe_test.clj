@@ -5,7 +5,7 @@
 
 (deftest intro-game-message-test 
   (testing "Intro messages"
-    (is (string/includes? (with-out-str (intro-game)) "TicTacToe"))))
+    (is (string/includes? (with-out-str (print-game-intro)) "TicTacToe"))))
 
 (deftest board-test
   (testing "Displays a simple blank board"
