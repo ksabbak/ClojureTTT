@@ -1,36 +1,13 @@
 # clojure-tictactoe
 
-FIXME: description
+Tic-tac-toe! The traditional strategy game where you try to get three markers in a row before your opponent.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Built in Clojure. To install Clojure, follow the instructions from (https://leiningen.org/). 
 
-## Usage
+To play, download or clone the project from this repo, then use the command line to navigate to the appropriate folder. ```$ lein run``` to start the game. Type ```quit``` to quit.
 
-FIXME: explanation
+## Tests
 
-    $ java -jar clojure-tictactoe-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2018 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Tests are built using clojure.test. Run ```$ lein test``` to run the tests.
