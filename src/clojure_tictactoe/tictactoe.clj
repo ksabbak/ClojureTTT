@@ -24,7 +24,6 @@ Examples:
   (println welcome-message)
   (println instructions-message))
 
-;TODO make this DRYer when you have minute and a better understanding of Clojure
 (defn render-board [spaces]
  (str  " " (spaces 0) " | " (spaces 1) " | " (spaces 2) " \n===+===+===\n " (spaces 3) " | " (spaces 4) " | " (spaces 5) " \n===+===+===\n " (spaces 6) " | " (spaces 7) " | " (spaces 8) " \n"))
 
@@ -33,6 +32,13 @@ Examples:
     (if (= user-input "quit")
       (. System exit 0)
       user-input)))
+
+(def player-atom (atom "x"))
+
+(defn switch-player [current-player]
+  (if (= current-player "x")
+    "o"
+    "x"))
 
 (defn continue-to-game []
   (println "Press enter key to continue")
@@ -52,10 +58,10 @@ Examples:
 
 (defn get-player-choice
   ([]
-   (println "Which space would you like to mark, Player x?")
+   (println (str "Which space would you like to mark, Player " @player-atom "?"))
    (let [choice (parse-move-input (get-user-input))]
    (if choice
-     {choice "x"}
+     {choice @player-atom}
     (do (println "Sorry, looks like that's not possible, try again?")
       (recur)))))
   ([choices]
@@ -70,9 +76,11 @@ Examples:
   ([]
   (let [player-choice (get-player-choice)]
     (println (render-board (render-board-spaces player-choice)))
+    (swap! player-atom switch-player)
     (game-loop player-choice)))
   ([choices]
    (let [player-choice (get-player-choice choices)]
      (println (render-board (render-board-spaces player-choice)))
+     (swap! player-atom switch-player)
      (recur player-choice))))
 
