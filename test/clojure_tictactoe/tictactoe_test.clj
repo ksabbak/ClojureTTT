@@ -7,6 +7,14 @@
   (testing "Intro messages"
     (is (string/includes? (with-out-str (print-game-intro)) "TicTacToe"))))
 
+(deftest continue-to-game-message-test
+  (testing "The message displays properly"
+    (is (string/includes? (with-out-str (with-in-str "\n" (continue-to-game))) "continue"))))
+
+(deftest continue-to-game-input-test
+    (testing "The function returns nil once newline has been entered"
+          (is (= (with-in-str "\n" (continue-to-game)) nil ))))
+
 (deftest board-test
   (testing "Displays a simple blank board"
     (is (= " 0 | 1 | 2 \n===+===+===\n 3 | 4 | 5 \n===+===+===\n 6 | 7 | 8 \n" (board [0 1 2 3 4 5 6 7 8])))))
