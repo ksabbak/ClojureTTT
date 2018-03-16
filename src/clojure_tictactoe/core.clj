@@ -5,4 +5,5 @@
   [& args]
   (ttt/print-game-intro)
   (ttt/continue-to-game)
-  (println (ttt/board (ttt/make-board-filler))))
+  (println (ttt/board (ttt/make-board-filler)))
+  (ttt/game-loop))

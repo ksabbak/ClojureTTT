@@ -1,6 +1,7 @@
 (ns clojure-tictactoe.tictactoe-test
   (:require [clojure.test :refer :all]
             [clojure.string :as string]
+            [clojure-tictactoe.helpers :as helper]
             [clojure-tictactoe.tictactoe :refer :all]))
 
 (deftest intro-game-message-test 
@@ -27,6 +28,43 @@
   (testing "Returns spaces where only the first space has been marked"
     (is (= (make-board-filler {0 "x"}) ["x" 1 2 3 4 5 6 7 8]))))
 
-(deftest make-board-filler-with-amove-on-multiple-spaces-test
+(deftest make-board-filler-with-a-move-on-multiple-spaces-test
    (testing "Returns spaces where the appropriate space is marked"
      (is (= (make-board-filler {3 "x", 7 "o", 2 "x"}) [0 1 "x" "x" 4 5 6 "o" 8]))))
+
+(deftest get-player-choice-no-arguments
+  (testing "No arguments returns map with player input and x"
+    (is (= (with-in-str "0" (get-player-choice)) {0 "x"}))))
+
+(deftest get-player-choice-no-arguments-bad-input
+  (testing "Doesn't accept non-numeric input"
+    (is (= (with-in-str (helper/make-input ["Alphabet" "8"]) (get-player-choice)) {8 "x"}))))
+
+(deftest get-player-choice-with-arguments-good-input
+  (testing "Get player choice with map argument returns that map plus the new choice"
+    (is (= (with-in-str "0" (get-player-choice {8 "x"})) {0 "x", 8 "x"}))))
+
+(deftest get-player-choice-with-arguments-bad-input
+  (testing "Doesn't accept non-numeric or too-high number input"
+    (is (= (with-in-str (helper/make-input ["Alphabet" "270" "8"]) (get-player-choice {0 "x"})) {0 "x", 8 "x"}))))
+
+(deftest get-player-choice-with-arguments-repeat-input
+  (testing "Doesn't accept a space that's already taken"
+    (is (= (with-in-str (helper/make-input ["0" "8"]) (get-player-choice {0 "x"})) {0 "x", 8 "x"}))))
+
+(deftest parse-move-input-test-with-number-input
+  (testing "Returns the int value of a numerical input"
+    (is (= (parse-move-input "2") 2))))
+
+(deftest parse-move-input-test-with-non-number-input
+  (testing "Returns nil if the input value is not a number"
+    (is (= (parse-move-input "Hello!") nil))))
+
+(deftest parse-move-input-test-with-too-high-number-input
+  (testing "Returns nil if the input value is greater than board size"
+    (is (= (parse-move-input "100") nil))))
+
+;(deftest game-loop-prints-board
+;  (testing "Game loop can print the board"
+;    (is (string/includes? (with-in-str (helper/make-input ["1" "quit"]) (with-out-str (game-loop))) "0 | x | 2 \n"))))
+
