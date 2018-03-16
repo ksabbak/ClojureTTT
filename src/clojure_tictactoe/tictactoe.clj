@@ -34,6 +34,13 @@ Examples:
       (. System exit 0)
       user-input)))
 
+(def player-atom (atom "x"))
+
+(defn switch-player [current-player]
+  (if (= current-player "x")
+    "o"
+    "x"))
+
 (defn continue-to-game []
   (println "Press enter key to continue")
   (get-user-input)
@@ -52,10 +59,10 @@ Examples:
 
 (defn get-player-choice
   ([]
-   (println "Which space would you like to mark, Player x?")
+   (println (str "Which space would you like to mark, Player " @player-atom "?"))
    (let [choice (parse-move-input (get-user-input))]
    (if choice
-     {choice "x"}
+     {choice @player-atom}
     (do (println "Sorry, looks like that's not possible, try again?")
       (recur)))))
   ([choices]
@@ -70,9 +77,11 @@ Examples:
   ([]
   (let [player-choice (get-player-choice)]
     (println (board (make-board-filler player-choice)))
+    (swap! player-atom switch-player)
     (game-loop player-choice)))
   ([choices]
    (let [player-choice (get-player-choice choices)]
      (println (board (make-board-filler player-choice)))
+     (swap! player-atom switch-player)
      (recur player-choice))))
 
