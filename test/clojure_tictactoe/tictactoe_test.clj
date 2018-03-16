@@ -64,6 +64,14 @@
   (testing "Returns nil if the input value is greater than board size"
     (is (= (parse-move-input "100") nil))))
 
+(deftest switch-player-test-when-x
+  (testing "Returns o when x is passed in"
+    (is (= "o" (switch-player "x")))))
+
+(deftest switch-player-test-when-o
+  (testing "Returns x when o is passed in"
+    (is (= "x" (switch-player "o")))))
+
 ;(deftest game-loop-prints-board
 ;  (testing "Game loop can print the board"
 ;    (is (string/includes? (with-in-str (helper/make-input ["1" "quit"]) (with-out-str (game-loop))) "0 | x | 2 \n"))))
