@@ -24,8 +24,7 @@ Examples:
   (println welcome-message)
   (println instructions-message))
 
-;TODO make this DRYer when you have minute and a better understanding of Clojure
-(defn board [spaces]
+(defn render-board [spaces]
  (str  " " (spaces 0) " | " (spaces 1) " | " (spaces 2) " \n===+===+===\n " (spaces 3) " | " (spaces 4) " | " (spaces 5) " \n===+===+===\n " (spaces 6) " | " (spaces 7) " | " (spaces 8) " \n"))
 
 (defn get-user-input []
@@ -46,11 +45,11 @@ Examples:
   (get-user-input)
   nil)
 
-(defn make-board-filler
+(defn render-board-spaces
   ([]
    (into [] (take 9 (range))))
   ([taken-spaces]
-   (into [] (map (fn [space] (or (taken-spaces space) space)) (make-board-filler)))))
+   (into [] (map (fn [space] (or (taken-spaces space) space)) (render-board-spaces)))))
 
 (defn parse-move-input
   ([input]
@@ -76,12 +75,12 @@ Examples:
 (defn game-loop
   ([]
   (let [player-choice (get-player-choice)]
-    (println (board (make-board-filler player-choice)))
+    (println (render-board (render-board-spaces player-choice)))
     (swap! player-atom switch-player)
     (game-loop player-choice)))
   ([choices]
    (let [player-choice (get-player-choice choices)]
-     (println (board (make-board-filler player-choice)))
+     (println (render-board (render-board-spaces player-choice)))
      (swap! player-atom switch-player)
      (recur player-choice))))
 
