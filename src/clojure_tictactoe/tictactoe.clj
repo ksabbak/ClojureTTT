@@ -59,11 +59,10 @@ Examples:
 (defn get-player-choice
   ([]
    (println (str "Which space would you like to mark, Player " @player-atom "?"))
-   (let [choice (parse-move-input (get-user-input))]
-   (if choice
+   (if-let [choice (parse-move-input (get-user-input))]
      {choice @player-atom}
     (do (println "Sorry, looks like that's not possible, try again?")
-      (recur)))))
+      (recur))))
   ([choices]
    (let [new_choices (conj choices (get-player-choice))]
      (if (= (count choices) (count new_choices))
