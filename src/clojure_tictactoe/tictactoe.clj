@@ -1,9 +1,7 @@
 (ns clojure-tictactoe.tictactoe
   (:gen-class)
-  (:require [clojure.string :as string]))
-
-(defn render-board [spaces]
- (str  " " (spaces 0) " | " (spaces 1) " | " (spaces 2) " \n===+===+===\n " (spaces 3) " | " (spaces 4) " | " (spaces 5) " \n===+===+===\n " (spaces 6) " | " (spaces 7) " | " (spaces 8) " \n"))
+  (:require [clojure.string :as string]
+            [clojure-tictactoe.cli.output.board-printer :as board-printer]))
 
 (defn get-user-input []
   (let [user-input (string/trim (read-line))]
@@ -17,14 +15,6 @@
   (if (= current-player "x")
     "o"
     "x"))
-
-(defn render-board-spaces
-  ([]
-   (into [] (take 9 (range))))
-  ([taken-spaces]
-   (into [] (map (fn [space] (or (taken-spaces space)
-                                 space))
-                 (render-board-spaces)))))
 
 (defn parse-move-input
   ([input]
@@ -59,12 +49,12 @@
 (defn game-loop
   ([]
   (let [player-choice (get-player-choice)]
-    (println (render-board (render-board-spaces player-choice)))
+    (println (board-printer/render-board (board-printer/render-board-spaces player-choice)))
     (swap! player-atom switch-player)
     (game-loop player-choice)))
   ([choices]
    (let [player-choice (get-player-choice choices)]
-     (println (render-board (render-board-spaces player-choice)))
+     (println (board-printer/render-board (board-printer/render-board-spaces player-choice)))
      (swap! player-atom switch-player)
      (recur player-choice))))
 
