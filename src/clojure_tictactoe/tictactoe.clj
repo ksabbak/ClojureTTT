@@ -18,11 +18,6 @@
     "o"
     "x"))
 
-(defn continue-to-game []
-  (println "Press enter key to continue")
-  (get-user-input)
-  nil)
-
 (defn render-board-spaces
   ([]
    (into [] (take 9 (range))))
