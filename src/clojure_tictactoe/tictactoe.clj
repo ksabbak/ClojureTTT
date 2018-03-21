@@ -49,20 +49,25 @@ Examples:
   ([]
    (into [] (take 9 (range))))
   ([taken-spaces]
-   (into [] (map (fn [space] (or (taken-spaces space) space)) (render-board-spaces)))))
+   (into [] (map (fn [space] (or (taken-spaces space)
+                                 space))
+                 (render-board-spaces)))))
 
 (defn parse-move-input
   ([input]
-    (let [formated-input (read-string input)]
-      (when (and (number? formated-input) (< formated-input 9))  formated-input))))
+   (let [formatted-input (read-string input)]
+     (when (and
+             (number? formatted-input)
+             (< formatted-input 9))
+       formatted-input))))
 
 (defn get-player-choice
   ([]
    (println (str "Which space would you like to mark, Player " @player-atom "?"))
    (if-let [choice (parse-move-input (get-user-input))]
      {choice @player-atom}
-    (do (println "Sorry, looks like that's not possible, try again?")
-      (recur))))
+     (do (println "Sorry, looks like that's not possible, try again?")
+         (recur))))
   ([choices]
    (let [new_choices (conj choices (get-player-choice))]
      (if (= (count choices) (count new_choices))
@@ -70,6 +75,13 @@ Examples:
            (recur choices))
        new_choices))))
 
+(defn is-over
+  [taken-spaces]
+  (if (= 1 (count (set (vals taken-spaces))))
+    true
+    false
+    )
+  )
 
 (defn game-loop
   ([]
