@@ -4,16 +4,6 @@
             [clojure-tictactoe.helpers :as helper]
             [clojure-tictactoe.tictactoe :refer :all]))
 
-(testing "Players"
-  (testing "switch-players"
-    (deftest switch-player-test-when-x
-      (testing "Returns o when x is passed in"
-        (is (= "o" (switch-player "x")))))
-
-    (deftest switch-player-test-when-o
-      (testing "Returns x when o is passed in"
-        (is (= "x" (switch-player "o")))))))
-
 (testing "End game"
   (testing "is-over"
     (deftest is-over-test-true-when-horizontal-win
