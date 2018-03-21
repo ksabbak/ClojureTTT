@@ -1,1 +1,1 @@
-(ns clojure-tictactoe.end-game)
+(ns clojure-tictactoe.cli.output.end-game-printer)

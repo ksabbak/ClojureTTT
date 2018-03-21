@@ -1,1 +1,1 @@
-(ns clojure-tictactoe.computer-opponent)
+(ns clojure-tictactoe.game.computer-opponent)

@@ -1,1 +1,1 @@
-(ns clojure-tictactoe.board-printer)
+(ns clojure-tictactoe.cli.output.board-printer)

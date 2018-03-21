@@ -1,1 +1,1 @@
-(ns clojure-tictactoe.game-rules)
+(ns clojure-tictactoe.game.game-rules)

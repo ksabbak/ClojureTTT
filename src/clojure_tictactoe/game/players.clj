@@ -1,1 +1,1 @@
-(ns clojure-tictactoe.players)
+(ns clojure-tictactoe.game.players)

@@ -1,1 +1,1 @@
-(ns clojure-tictactoe.error-printer)
+(ns clojure-tictactoe.cli.output.error-printer)

@@ -5,11 +5,6 @@
             [clojure-tictactoe.tictactoe :refer :all]))
 
 (testing "Game start"
-  (testing "print-game-intro"
-    (deftest intro-game-message-test
-      (testing "Intro messages"
-       (is (string/includes? (with-out-str (print-game-intro)) "TicTacToe")))))
-
   (testing "continue-to-game"
     (deftest continue-to-game-message-test
       (testing "The message displays properly"
@@ -95,7 +90,7 @@
     (deftest is-over-test-false-when-mismatching-tokens-on-row
       (testing "Returns false when top row is full but has different markers"
         (is (= false (is-over {0 "x", 1 "o", 2 "x"})))))
-    (deftest is-over-test-false-when-no-win-and-board-is-not-full
+    (def is-over-test-false-when-no-win-and-board-is-not-full
       (testing "Returns false when only two markers are on the board"
-        (is (= false (is-over {0 x, 1 "x"})))))))
+        (is (= false (is-over {0 "x", 1 "x"})))))))
 

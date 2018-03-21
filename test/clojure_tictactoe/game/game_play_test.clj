@@ -1,5 +1,5 @@
-(ns clojure-tictactoe.game-play-test
+(ns clojure-tictactoe.game.game-play-test
   (:require [clojure.test :refer :all]
             [clojure.string :as string]
             [clojure-tictactoe.helpers :as helper]
-            [clojure-tictactoe.game-play :refer :all]))
+            [clojure-tictactoe.game.game-play :refer :all]))

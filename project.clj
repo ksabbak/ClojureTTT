@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.8.0"]]
   :main ^:skip-aot clojure-tictactoe.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :plugins [[lein-eftest "0.4.3"]])
+  :profiles {:uberjar {:aot :all}}

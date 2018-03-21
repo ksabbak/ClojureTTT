@@ -1,5 +1,5 @@
-(ns clojure-tictactoe.end-game-printer-test
+(ns clojure-tictactoe.cli.output.end-game-printer-test
   (:require [clojure.test :refer :all]
             [clojure.string :as string]
             [clojure-tictactoe.helpers :as helper]
-            [clojure-tictactoe.end-game-printer :refer :all]))
+            [clojure-tictactoe.cli.output.end-game-printer :refer :all]))
