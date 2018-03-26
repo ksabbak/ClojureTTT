@@ -14,3 +14,4 @@
     (deftest switch-player-test-when-o
       (testing "Returns x when o is passed in"
         (is (= "x" (switch-player "o")))))))
+

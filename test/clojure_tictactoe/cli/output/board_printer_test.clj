@@ -17,8 +17,8 @@
 
   (deftest render-board-spaces-with-a-move-on-space-0-test
     (testing "Returns spaces where only the first space has been marked"
-      (is (= (render-board-spaces {0 "x"}) ["x" 1 2 3 4 5 6 7 8]))))
+      (is (= (render-board-spaces ["x" 1 2 3 4 5 6 7 8]) ["x" 1 2 3 4 5 6 7 8]))))
 
   (deftest render-board-spaces-with-a-move-on-multiple-spaces-test
     (testing "Returns spaces where the appropriate space is marked"
-      (is (= (render-board-spaces {3 "x", 7 "o", 2 "x"}) [0 1 "x" "x" 4 5 6 "o" 8]))))))
+      (is (= (render-board-spaces [0 1 "x" "x" 4 5 6 "o" 8]) [0 1 "x" "x" 4 5 6 "o" 8]))))))
