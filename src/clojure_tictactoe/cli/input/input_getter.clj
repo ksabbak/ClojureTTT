@@ -27,10 +27,4 @@
    (if-let [choice (parse-move-input (get-user-input))]
      {choice @players/player-atom}
      (do (println "Sorry, looks like that's not possible, try again?")
-         (recur))))
-  ([choices]
-   (let [new_choices (conj choices (get-player-choice))]
-     (if (= (count choices) (count new_choices))
-       (do (println "Sorry, that's already been taken")
-           (recur choices))
-       new_choices))))
+         (recur)))))
