@@ -12,7 +12,7 @@
 
     (deftest continue-to-game-input-test
       (testing "The function returns nil once newline has been entered"
-        (is (= (with-in-str "\n" (continue-to-game)) nil ))))))
+        (is (nil? (with-in-str "\n" (continue-to-game))))))))
 
 (testing "Player moves"
   (testing "get-player-choice"
@@ -31,8 +31,8 @@
 
     (deftest parse-move-input-test-with-non-number-input
       (testing "Returns nil if the input value is not a number"
-        (is (= (parse-move-input "Hello!") nil))))
+        (is (nil? (parse-move-input "Hello!")))))
 
     (deftest parse-move-input-test-with-too-high-number-input
       (testing "Returns nil if the input value is greater than board size"
-        (is (= (parse-move-input "100") nil))))))
+        (is (nil? (parse-move-input "100")))))))
