@@ -16,10 +16,11 @@
 (defn parse-move-input
   ([input]
    (let [formatted-input (read-string input)]
-     (when (and
-             (number? formatted-input)
-             (< formatted-input 9))
-       formatted-input))))
+     (let [valid-numeral (and
+                           (number? formatted-input)
+                           (< formatted-input 9))]
+       (when valid-numeral
+         formatted-input)))))
 
 (defn get-player-choice
   ([]

@@ -8,5 +8,5 @@
   [& args]
   (instructions-printer/print-game-intro)
   (input-getter/continue-to-game)
-  (println (board-printer/render-board (board-printer/render-board-spaces)))
+  (board-printer/print-board)
   (game-play/game-loop))

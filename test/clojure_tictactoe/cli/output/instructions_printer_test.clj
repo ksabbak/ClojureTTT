@@ -8,4 +8,5 @@
   (testing "print-game-intro"
     (deftest intro-game-message-test
       (testing "Intro messages"
-       (is (string/includes? (with-out-str (print-game-intro)) "TicTacToe"))))))
+       (is (string/includes? (with-out-str (print-game-intro)) welcome-message))
+       (is (string/includes? (with-out-str (print-game-intro)) instructions-message))))))
