@@ -8,7 +8,6 @@
 (defn player-move
   [move-function board]
   (loop []
-    (println (move-function))
     (if-let [new-board (board/mark-space (move-function) @players/player-atom board)]
       new-board
       (do (println "Sorry, that looks taken, try again") ;;TODO: move this
@@ -16,13 +15,10 @@
 
 (defn game-loop
   ([]
-  (let [player-choice (input-getter/get-player-choice)]
-    (println (board-printer/render-board (board-printer/render-board-spaces player-choice)))
-    (players/player-swap)
-    (game-loop player-choice)))
-  ([choices]
-   (let [player-choice (input-getter/get-player-choice choices)]
-     (println (board-printer/render-board (board-printer/render-board-spaces player-choice)))
+    (game-loop (board-printer/render-board-spaces)))
+  ([board]
+   (let [new-board (player-move input-getter/get-player-choice board)]
+     (println (board-printer/render-board (board-printer/render-board-spaces new-board)))
      (players/player-swap)
-     (recur player-choice))))
+     (recur new-board))))
 

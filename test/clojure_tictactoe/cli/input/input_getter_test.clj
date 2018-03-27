@@ -17,12 +17,12 @@
 (testing "Player moves"
   (testing "get-player-choice"
     (deftest get-player-choice-test
-      (testing "No arguments returns map with player input and x"
-        (is (= (with-in-str "0" (get-player-choice)) {0 "x"}))))
+      (testing "Good move input returns that input as an integer"
+        (is (= (with-in-str "0" (get-player-choice)) 0))))
 
     (deftest get-player-choice-test-bad-arguments
       (testing "Doesn't accept non-numeric input"
-        (is (= (with-in-str (helper/make-input ["Alphabet" "8"]) (get-player-choice)) {8 "x"})))))
+        (is (= (with-in-str (helper/make-input ["Alphabet" "8"]) (get-player-choice)) 8 )))))
 
  (testing "parse-move-input"
     (deftest parse-move-input-test-with-number-input

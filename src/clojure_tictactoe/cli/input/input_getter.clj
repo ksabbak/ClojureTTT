@@ -25,6 +25,6 @@
   ([]
    (println (str "Which space would you like to mark, Player " @players/player-atom "?"))
    (if-let [choice (parse-move-input (get-user-input))]
-     {choice @players/player-atom}
+     choice
      (do (println "Sorry, looks like that's not possible, try again?")
          (recur)))))
