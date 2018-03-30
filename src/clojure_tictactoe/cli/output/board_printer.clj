@@ -17,6 +17,6 @@
 
 (defn print-board
   ([]
-    (print-board board/render-empty-board))
+    (print-board (board/render-empty-board)))
   ([spaces]
   (println (render-board spaces))))
