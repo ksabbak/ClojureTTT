@@ -35,8 +35,27 @@
 
     (deftest mark-space-test-open
       (testing "Successfully marks an open space"
-        (is (=(mark-space 1 "x" (render-empty-board)) x-on-one-board))))
+        (is (= (mark-space 1 "x" (render-empty-board)) x-on-one-board))))
     (deftest mark-space-test-taken
       (testing "Doesn't mark a taken space. Returns nil"
-        (is (nil? (mark-space 1 "x" x-on-one-board)))))))
+        (is (nil? (mark-space 1 "x" x-on-one-board))))))
+
+  (testing "full board"
+
+    (deftest board-full?-test-empty-board
+      (testing "board-full? returns false when given an empty board"
+        (is (false? (board-full? (render-empty-board))))))
+    
+    (deftest board-full?-test-partial-board
+      (testing "board-full? returns false when given a partially filled board"
+        (is (false? (board-full? ["x" "o" "x" 3 4 5 6 7 8])))))
+
+    (deftest board-full?-test-full-board
+      (testing "board-full? returns true when given a full board"
+        (is (true? (board-full? ["x" "o" "x" "x" "o" "o" "o" "x" "x"])))))
+    )
+    
+
+  )
+
 

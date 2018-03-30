@@ -12,3 +12,7 @@
 
 (defn render-empty-board []
    (into [] (take 9 (range))))
+
+(defn board-full? 
+  [board]
+  (not (some #(space-is-open? %  board) (take (count board) (range)))))
