@@ -3,6 +3,7 @@
             [clojure-tictactoe.cli.input.input-getter :as input-getter]
             [clojure-tictactoe.game.players :as players]
             [clojure-tictactoe.game.board :as board]
+            [clojure-tictactoe.game.game-rules :as rules]
             ))
 
 (defn player-move
@@ -17,8 +18,9 @@
   ([]
    (game-loop (board/render-empty-board)))
   ([board]
-   (let [new-board (player-move input-getter/get-player-choice board)]
-     (board-printer/print-board new-board)
-     (players/player-swap)
-     (recur new-board))))
+   (when-not (rules/game-over? board)
+     (let [new-board (player-move input-getter/get-player-choice board)]
+       (board-printer/print-board new-board)
+       (players/player-swap)
+       (recur new-board)))))
 
