@@ -52,10 +52,6 @@
 
     (deftest board-full?-test-full-board
       (testing "board-full? returns true when given a full board"
-        (is (true? (board-full? ["x" "o" "x" "x" "o" "o" "o" "x" "x"])))))
-    )
-    
-
-  )
+        (is (true? (board-full? ["x" "o" "x" "x" "o" "o" "o" "x" "x"])))))))
 
 

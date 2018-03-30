@@ -10,7 +10,7 @@
     (assoc board space marker)))
 
 (defn render-empty-board []
-   (into [] (take 9 (range))))
+  (into [] (take 9 (range))))
 
 (defn board-full?
   [board]

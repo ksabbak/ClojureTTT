@@ -42,8 +42,7 @@
 
     (deftest assess-win-test-diagonal-2
       (testing "assess-win returns the winner on a game with a win from the bottom left corner to the upper right one"
-        (is (= "o" (assess-win ["x" 1 "o" 3 "o" "x" "o" "x" 8])))))
-    ))
+        (is (= "o" (assess-win ["x" 1 "o" 3 "o" "x" "o" "x" 8])))))))
 
 (testing "Game over"
 
@@ -61,5 +60,4 @@
 
   (deftest game-over-test-tie
     (testing "game-over? returns true when there are no moves left and no win"
-      (is (true? (game-over? ["x" "o" "x" "x" "o" "o" "o" "x" "x"])))))
-  )
+      (is (true? (game-over? ["x" "o" "x" "x" "o" "o" "o" "x" "x"]))))))

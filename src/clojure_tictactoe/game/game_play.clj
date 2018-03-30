@@ -11,7 +11,7 @@
   (loop []
     (if-let [new-board (board/mark-space (move-function) @players/player-atom board)]
       new-board
-      (do (println "Sorry, that looks taken, try again") ;;TODO: move this
+      (do (println "Sorry, that looks taken, try again") 
           (recur)))))
 
 (defn game-loop
