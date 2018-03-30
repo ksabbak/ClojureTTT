@@ -4,7 +4,6 @@
   [space board]
   (int? (board space)))
 
-
 (defn mark-space
   [space marker board]
   (when (space-is-open? space board)
@@ -13,6 +12,6 @@
 (defn render-empty-board []
    (into [] (take 9 (range))))
 
-(defn board-full? 
+(defn board-full?
   [board]
   (not (some #(space-is-open? %  board) (take (count board) (range)))))
