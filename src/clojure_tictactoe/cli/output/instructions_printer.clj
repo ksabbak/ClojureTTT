@@ -4,17 +4,17 @@
   "Welcome to the game of TicTacToe! \n")
 
 (def instructions-message
-  "Instructions: 2 players take turns placing markers, try to get three of your markers in a row to win! \n
+ "Instructions: 2 players take turns placing markers, try to get three of your markers in a row to win! \n
 
-  Examples:
+Examples:
 
   Vertical      Horizontal      Diagonal
 
-  | x |     |    |   |     |  x |   |
-  ===+===+===  | ===+===+===  | ===+===+===
-  | x |     |  x | x | x   |    | x |
-  ===+===+===  | ===+===+===  | ===+===+===
-  | x |     |    |   |     |    |   | x  \n\n ")
+   | x |     |    |   |     |  x |   |
+===+===+===  | ===+===+===  | ===+===+===
+   | x |     |  x | x | x   |    | x |
+===+===+===  | ===+===+===  | ===+===+===
+   | x |     |    |   |     |    |   | x  \n\n ")
 
 
 (defn print-game-intro []
