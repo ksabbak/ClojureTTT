@@ -30,6 +30,21 @@
       (testing "space-is-open? returns false when marker is on a space and marker is a string of a number"
         (is (false? (space-is-open? 1 [0 "1" 2 3 4 5 6 7 8]))))))
 
+  (testing "open spaces"
+    
+    (deftest open-spaces-test-empty-board
+      (testing "open-spaces returns all spaces on an empty board"
+        (is (= (render-empty-board) (open-spaces (render-empty-board))))))
+    
+    (deftest open-spaces-test-mixed-board
+      (testing "open-spaces only returns the open spaces on a board with at least one mark"
+        (is (= '(0 2 3 4 5 6 7 8) (open-spaces x-on-one-board)))
+        (is (= '(0 8) (open-spaces [0 "x" "o" "x" "x" "o" "x" "o" 8])))))
+    
+    (deftest open-spaces-test-full
+      (testing "open-spaces returns empty list on a full board"
+        (is (= '() (open-spaces ["o" "x" "o" "x" "x" "o" "x" "o" "x"])))))
+    )
 
   (testing "mark space"
 
