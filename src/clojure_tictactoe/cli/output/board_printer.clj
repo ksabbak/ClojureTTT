@@ -15,8 +15,5 @@
        (spaces 8) " \n"))
 
 
-(defn print-board
-  ([]
-   (print-board (board/render-empty-board)))
-  ([spaces]
-   (println (render-board spaces))))
+(defn print-board [spaces]
+   (println (render-board spaces)))
