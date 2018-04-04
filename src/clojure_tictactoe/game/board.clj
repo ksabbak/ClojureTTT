@@ -16,3 +16,4 @@
 
 (defn board-full?  [board]
   (= 0 (count (open-spaces board))))
+  
