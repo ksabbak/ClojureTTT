@@ -14,4 +14,7 @@
 
 (defn board-full?
   [board]
-  (not (some #(space-is-open? %  board) (take (count board) (range)))))
+  (->> (range)
+      (take (count board))
+      (some #(space-is-open? % board))
+      (not)))
