@@ -1,9 +1,12 @@
 (ns clojure-tictactoe.core
-  (:require [clojure-tictactoe.tictactoe :as ttt]))
+  (:require [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]
+            [clojure-tictactoe.cli.input.input-getter :as input-getter]
+            [clojure-tictactoe.cli.output.board-printer :as board-printer]
+            [clojure-tictactoe.game.game-play :as game-play]))
 
 (defn -main
   [& args]
-  (ttt/print-game-intro)
-  (ttt/continue-to-game)
-  (println (ttt/render-board (ttt/render-board-spaces)))
-  (ttt/game-loop))
+  (instructions-printer/print-game-intro)
+  (input-getter/continue-to-game)
+  (board-printer/print-board)
+  (game-play/game-loop))
