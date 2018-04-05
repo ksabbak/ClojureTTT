@@ -1,6 +1,5 @@
 (ns clojure-tictactoe.cli.input.input-getter
-  (:require [clojure.string :as string]
-            [clojure-tictactoe.game.players :as players]))
+  (:require [clojure.string :as string]))
 
 (defn get-user-input []
   (let [user-input (string/trim (read-line))]
@@ -22,7 +21,7 @@
          formatted-input))))
 
 (defn get-player-choice []
-   (println (str "Which space would you like to mark, Player " @players/player-atom "?"))
+   (println (str "Which space would you like to mark?"))
    (if-let [choice (parse-move-input (get-user-input))]
      choice
      (do (println "Sorry, looks like that's not possible, try again?")
