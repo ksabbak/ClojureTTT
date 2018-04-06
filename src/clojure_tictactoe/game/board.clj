@@ -15,4 +15,6 @@
 
 (defn board-full?  [board]
   (= 0 (count (open-spaces board))))
-  
+
+(defn side-length [board]
+  (int (Math/sqrt (count board))))

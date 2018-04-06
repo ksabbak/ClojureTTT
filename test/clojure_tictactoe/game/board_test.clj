@@ -67,6 +67,15 @@
 
     (deftest board-full?-test-full-board
       (testing "board-full? returns true when given a full board"
-        (is (true? (board-full? ["x" "o" "x" "x" "o" "o" "o" "x" "x"])))))))
+        (is (true? (board-full? ["x" "o" "x" "x" "o" "o" "o" "x" "x"]))))))
+  
+  (testing "side length"
+    
+    (deftest side-length-test
+      (testing "Returns the square root of the board length"
+        (is (= 3 (side-length [0 1 2 3 4 5 6 7 8]))))
+      (testing "Returns an int"
+        (is (int? (side-length [0 1 2 3 4 5 6 7 8])))))))
+  
 
 

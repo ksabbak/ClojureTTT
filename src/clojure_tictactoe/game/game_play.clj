@@ -17,16 +17,18 @@
     (players/player-swap)
     new-board))
 
-(defn game-loop []
+(defn game-loop [board]
+  (loop [board board]
+    (if-not (rules/game-over? board)
+      (let [new-board (continue-game board)]
+            (recur new-board))
+      (if-let [results (rules/assess-winner board)]
+              (println (end-printer/game-won-message results))
+              (println end-printer/game-tie-message)))))
+
+(defn initialize-game []
   (instructions-printer/print-game-intro)
   (input-getter/continue-to-game)
   (let [board (board/render-empty-board 9)]
     (board-printer/print-board board)
-    (loop [board board]
-      (if-not (rules/game-over? board)
-        (let [new-board (continue-game board)]
-              (recur new-board))
-        (if-let [results (rules/assess-win board)]
-                (println (end-printer/game-won-message results))
-                (println end-printer/game-tie-message))))))
-
+    (game-loop board)))

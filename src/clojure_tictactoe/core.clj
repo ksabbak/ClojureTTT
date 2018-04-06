@@ -3,4 +3,4 @@
 
 (defn -main
   [& args]
-  (game-play/game-loop))
+  (game-play/initialize-game))

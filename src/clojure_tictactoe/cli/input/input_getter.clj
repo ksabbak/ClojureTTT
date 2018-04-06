@@ -1,5 +1,6 @@
 (ns clojure-tictactoe.cli.input.input-getter
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string]
+            [clojure-tictactoe.game.board :as board]))
 
 (defn get-user-input []
   (let [user-input (string/trim (read-line))]
@@ -26,3 +27,11 @@
      choice
      (do (println "Sorry, looks like that's not possible, try again?")
          (recur))))
+
+(defn get-player-move [board]
+  (loop []
+  (let [move (get-player-choice)]
+    (if (board/space-is-open? move board)
+        move
+        (do (println "Sorry, that looks taken, try again")
+            (recur))))))
