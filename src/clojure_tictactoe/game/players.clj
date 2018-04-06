@@ -1,7 +1,6 @@
 (ns clojure-tictactoe.game.players
   (:require [clojure-tictactoe.game.computer-opponent :as ai]
-            [clojure-tictactoe.cli.input.input-getter :as input-getter]
-    ))
+            [clojure-tictactoe.cli.input.input-getter :as input-getter]))
 
 (def player-atom (atom "x"))
 
@@ -19,5 +18,4 @@
 (defn choose-player-function [player]
   (if (= player "x")
     human-player-move
-    ai/make-move
-  ))
+    ai/make-move))

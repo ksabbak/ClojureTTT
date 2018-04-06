@@ -92,16 +92,13 @@
     (testing "returns the list of vertical win options for that board"
       (is (= '((0 3 6) (1 4 7) (2 5 8)) (vertical-win-options [0 1 2 3 4 5 6 7 8])))))
 
-   (deftest diagonal-win-options-test
+  (deftest diagonal-win-options-test
     (testing "returns the list of diagonal win options for that board"
       (is (= '((0 4 8) (2 4 6)) (diagonal-win-options [0 1 2 3 4 5 6 7 8])))))
 
-   (deftest all-win-options-test
+  (deftest all-win-options-test
     (testing "returns the list of all win options for that board"
-      (is (= (set '((0 1 2) (3 4 5) (6 7 8) (0 3 6) (1 4 7) (2 5 8) (0 4 8) (2 4 6))) (set (all-win-options [0 1 2 3 4 5 6 7 8]))))))
-
-
-  )
+      (is (= (set '((0 1 2) (3 4 5) (6 7 8) (0 3 6) (1 4 7) (2 5 8) (0 4 8) (2 4 6))) (set (all-win-options [0 1 2 3 4 5 6 7 8])))))))
 
 (testing "Game over"
 

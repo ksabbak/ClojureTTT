@@ -18,5 +18,4 @@
 
     (deftest make-move-test-many-options
       (testing "make-move will return one of any of the open spaces on a board with some taken spaces"
-        (is (contains? #{0 1} (make-move [0 1 "x" "o" "x" "o" "o" "x" "o" "x" "o"])))))
-    ))
+        (is (contains? #{0 1} (make-move [0 1 "x" "o" "x" "o" "o" "x" "o" "x" "o"])))))))

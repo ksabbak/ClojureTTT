@@ -5,7 +5,6 @@
             [clojure-tictactoe.game.players :refer :all]
             [clojure-tictactoe.game.computer-opponent :as ai]))
 
-
 (testing "Players"
   (testing "switch-players"
     (deftest switch-player-test-when-x

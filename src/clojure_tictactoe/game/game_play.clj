@@ -21,10 +21,10 @@
   (loop [board board]
     (if-not (rules/game-over? board)
       (let [new-board (continue-game board)]
-            (recur new-board))
+        (recur new-board))
       (if-let [results (rules/assess-winner board)]
-              (println (end-printer/game-won-message results))
-              (println end-printer/game-tie-message)))))
+        (println (end-printer/game-won-message results))
+        (println end-printer/game-tie-message)))))
 
 (defn initialize-game []
   (instructions-printer/print-game-intro)
