@@ -1,6 +1,6 @@
 (ns clojure-tictactoe.cli.input.input-getter
   (:require [clojure.string :as string]
-            [clojure-tictactoe.game.players :as players]))
+            [clojure-tictactoe.game.board :as board]))
 
 (defn get-user-input []
   (let [user-input (string/trim (read-line))]
@@ -13,19 +13,25 @@
   (get-user-input)
   nil)
 
-(defn parse-move-input
-  ([input]
+(defn parse-move-input [input]
    (let [formatted-input (read-string input)]
      (let [valid-numeral (and
                            (number? formatted-input)
                            (< formatted-input 9))]
        (when valid-numeral
-         formatted-input)))))
+         formatted-input))))
 
-(defn get-player-choice
-  ([]
-   (println (str "Which space would you like to mark, Player " @players/player-atom "?"))
+(defn get-player-choice []
+   (println (str "Which space would you like to mark?"))
    (if-let [choice (parse-move-input (get-user-input))]
      choice
      (do (println "Sorry, looks like that's not possible, try again?")
-         (recur)))))
+         (recur))))
+
+(defn get-player-move [board]
+  (loop []
+  (let [move (get-player-choice)]
+    (if (board/space-is-open? move board)
+        move
+        (do (println "Sorry, that looks taken, try again")
+            (recur))))))

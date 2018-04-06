@@ -1,20 +1,20 @@
 (ns clojure-tictactoe.game.board)
 
-(defn space-is-open?
-  [space board]
+(defn space-is-open? [space board]
   (int? (board space)))
 
-(defn mark-space
-  [space marker board]
+(defn open-spaces [board]
+  (keep #(if (space-is-open? % board) %) (range (count board))))
+
+(defn mark-space [space marker board]
   (when (space-is-open? space board)
     (assoc board space marker)))
 
-(defn render-empty-board []
-  (into [] (take 9 (range))))
+(defn render-empty-board [length]
+  (into [] (take length (range))))
 
-(defn board-full?
-  [board]
-  (->> (range)
-      (take (count board))
-      (some #(space-is-open? % board))
-      (not)))
+(defn board-full?  [board]
+  (= 0 (count (open-spaces board))))
+
+(defn side-length [board]
+  (int (Math/sqrt (count board))))

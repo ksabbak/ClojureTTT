@@ -15,7 +15,7 @@
 
     (deftest print-board-test-empty
       (testing "Prints a simple blank board"
-        (is (= " 0 | 1 | 2 \n===+===+===\n 3 | 4 | 5 \n===+===+===\n 6 | 7 | 8 \n\n" (with-out-str (print-board))))))
+        (is (= " 0 | 1 | 2 \n===+===+===\n 3 | 4 | 5 \n===+===+===\n 6 | 7 | 8 \n\n" (with-out-str (print-board [0 1 2 3 4 5 6 7 8]))))))
 
     (deftest print-board-test-markers
       (testing "Prints a board with blank spaces and markers"
