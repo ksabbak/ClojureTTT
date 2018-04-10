@@ -24,7 +24,7 @@
       (testing "Doesn't accept non-numeric input"
         (is (= (with-in-str (helper/make-input ["Alphabet" "8"]) (get-player-choice)) 8 )))))
 
- (testing "parse-move-input"
+  (testing "parse-move-input"
     (deftest parse-move-input-test-with-number-input
       (testing "Returns the int value of a numerical input"
         (is (= (parse-move-input "2") 2))))

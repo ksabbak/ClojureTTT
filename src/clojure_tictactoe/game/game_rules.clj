@@ -1,34 +1,31 @@
 (ns clojure-tictactoe.game.game-rules
   (:require [clojure-tictactoe.game.board :as board]))
 
+(defn horizontal-win-options [board]
+  (partition (board/side-length board) (range (count board))))
 
-(defn assess-win
-  [board]
-  (let [top-row (= (board 0) (board 1) (board 2))
-        middle-row (= (board 3) (board 4) (board 5))
-        bottom-row (= (board 6) (board 7) (board 8))
-        left-column (= (board 0) (board 3) (board 6))
-        middle-column (= (board 1) (board 4) (board 7))
-        right-column (= (board 2) (board 5) (board 8))
-        top-left-to-bottom-right-diagonal (= (board 0) (board 4) (board 8))
-        bottom-left-to-top-right-diagonal (= (board 2) (board 4) (board 6))
-        top-left-corner(board 0)
-        top-middle-space (board 1)
-        top-right-corner (board 2)
-        left-middle-space (board 3)
-        bottom-left-corner (board 6)]
-  (cond
-    top-row top-left-corner
-    middle-row left-middle-space
-    bottom-row bottom-left-corner
-    left-column top-left-corner
-    middle-column top-middle-space
-    right-column top-right-corner
-    top-left-to-bottom-right-diagonal top-left-corner
-    bottom-left-to-top-right-diagonal top-right-corner)))
+(defn vertical-win-options [board]
+  (apply map list (horizontal-win-options board)))
 
-(defn game-over?
-  [board]
-  (not (not (or
-              (board/board-full? board)
-              (assess-win board)))))
+(defn diagonal-win-options [board]
+  (let [side-length (board/side-length board)]
+    (let [top-left-to-bottom-right-diagonal (take side-length (range 0 (count board) (+ 1 side-length)))
+          bottom-left-to-top-right-diagonal (take side-length (range (- side-length 1) (count board) (- side-length 1)))]
+      (list top-left-to-bottom-right-diagonal bottom-left-to-top-right-diagonal))))
+
+(defn all-win-options [board]
+  (concat (diagonal-win-options board) (vertical-win-options board) (horizontal-win-options board)))
+
+(defn potential-wins [board]
+  (map #(map board %) (all-win-options board)))
+
+(defn winner? [board]
+  (some? (some #(apply = %) (potential-wins board))))
+
+(defn assess-winner [board]
+  (first (some #(when (apply = %) %) (potential-wins board))))
+
+(defn game-over? [board]
+  (or
+    (board/board-full? board)
+    (winner? board)))
