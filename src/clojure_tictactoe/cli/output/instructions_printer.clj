@@ -20,3 +20,8 @@ Examples:
 (defn print-game-intro []
   (println welcome-message)
   (println instructions-message))
+
+
+
+(defn print-marker-instructions [player]
+  (println (str "What marker would you like for " player "?")))

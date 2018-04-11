@@ -2,20 +2,34 @@
   (:require [clojure-tictactoe.game.computer-opponent :as ai]
             [clojure-tictactoe.cli.input.input-getter :as input-getter]))
 
-(def player-atom (atom "x"))
+(defn acceptable-marker-option? [potential-marker]
+  (-> potential-marker
+    (count)
+    (= 1)))
 
-(defn switch-player [current-player]
-  (if (= current-player "x")
-    "o"
-    "x"))
+(defn distinct-markers? [markers]
+  (->> markers
+    (apply =)
+    (not)))
 
-(defn player-swap []
-  (swap! player-atom switch-player))
+(defn acquire-one-marker [player]
+  (let [marker (input-getter/get-player-marker player)]
+    (if (acceptable-marker-option? marker)
+      marker
+      (recur player))))
 
-(defn human-player-move [board]
-  (input-getter/get-player-move board))
+(defn acquire-both-markers [players]
+  (let [markers (map acquire-one-marker players)]
+    (if (distinct-markers? markers)
+      (into [] markers)
+      (recur players))))
 
-(defn choose-player-function [player]
-  (if (= player "x")
-    human-player-move
+(defn current-player [turn]
+  (if (even? turn)
+    (let [first-player 0])
+    (let [second-player 1])))
+
+(defn choose-player-function [turn]
+  (if (= 0 (current-player turn))
+    input-getter/get-player-move
     ai/make-move))
