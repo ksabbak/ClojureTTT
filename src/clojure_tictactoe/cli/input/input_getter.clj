@@ -1,6 +1,7 @@
 (ns clojure-tictactoe.cli.input.input-getter
   (:require [clojure.string :as string]
-            [clojure-tictactoe.game.board :as board]))
+            [clojure-tictactoe.game.board :as board]
+            [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]))
 
 (defn get-user-input []
   (let [user-input (string/trim (read-line))]
@@ -20,6 +21,11 @@
                           (< formatted-input 9))]
       (when valid-numeral
         formatted-input))))
+
+(defn get-player-marker [player]
+  (instructions-printer/print-marker-instructions player)
+  (get-user-input)
+  )
 
 (defn get-player-choice []
   (println (str "Which space would you like to mark?"))

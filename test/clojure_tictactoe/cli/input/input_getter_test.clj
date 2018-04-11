@@ -14,6 +14,7 @@
       (testing "The function returns nil once newline has been entered"
         (is (nil? (with-in-str "\n" (continue-to-game))))))))
 
+
 (testing "Player moves"
   (testing "get-player-choice"
     (deftest get-player-choice-test
@@ -23,6 +24,11 @@
     (deftest get-player-choice-test-bad-arguments
       (testing "Doesn't accept non-numeric input"
         (is (= (with-in-str (helper/make-input ["Alphabet" "8"]) (get-player-choice)) 8 )))))
+
+  (testing "get-player-move"
+    (deftest get-player-move-test
+      (testing "Doesn't accept taken input, does accept open space"
+        (is (= (with-in-str (helper/make-input ["0" "8"]) (get-player-move ["x" 1 2 3 4 5 6 7 8])) 8 )))))
 
   (testing "parse-move-input"
     (deftest parse-move-input-test-with-number-input
