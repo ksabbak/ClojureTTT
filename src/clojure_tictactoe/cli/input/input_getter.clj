@@ -15,12 +15,12 @@
   nil)
 
 (defn parse-move-input [input]
-  (let [formatted-input (read-string input)]
-    (let [valid-numeral (and
+  (let [formatted-input (read-string input)
+        valid-numeral (and
                           (number? formatted-input)
                           (< formatted-input 9))]
       (when valid-numeral
-        formatted-input))))
+        formatted-input)))
 
 (defn get-player-marker [player]
   (instructions-printer/print-marker-instructions player)

@@ -8,12 +8,18 @@
             [clojure-tictactoe.game.game-rules :as rules]
             ))
 
+(def standard-board-size 9)
+
 (defn player-move [move-function board marker]
   (board/mark-space (move-function board) marker board))
 
 (defn continue-game [board markers turn]
-  (let [new-board (player-move (players/choose-player-function turn) board (markers (players/current-player turn)))]
-
+  (let [new-board (player-move
+                    (players/choose-player-function
+                      turn)
+                    board
+                    (markers
+                      (players/current-player turn)))]
     (board-printer/print-board new-board)
     new-board))
 
@@ -29,7 +35,7 @@
 (defn initialize-game []
   (instructions-printer/print-game-intro)
   (input-getter/continue-to-game)
-  (let [board (board/render-empty-board 9)
+  (let [board (board/render-empty-board standard-board-size)
         markers (players/acquire-both-markers '("you" "the computer"))]
     (board-printer/print-board board)
     (game-loop board markers 0)))

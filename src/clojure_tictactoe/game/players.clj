@@ -26,8 +26,8 @@
 
 (defn current-player [turn]
   (if (even? turn)
-    0
-    1))
+    (let [first-player 0])
+    (let [second-player 1])))
 
 (defn choose-player-function [turn]
   (if (= 0 (current-player turn))
