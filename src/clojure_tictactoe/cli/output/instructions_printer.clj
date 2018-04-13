@@ -21,7 +21,18 @@ Examples:
   (println welcome-message)
   (println instructions-message))
 
-
-
 (defn print-marker-instructions [player]
   (println (str "What marker would you like for " player "?")))
+
+(defn stringify-options [options]
+  (->> options
+    (map-indexed #(str (+ %1 1) ". " %2))
+    (map println)
+    (dorun)))
+
+(def game-choice-message
+  "What kind of game would you like to play?\n")
+
+(def game-choice-request
+  "\nPlease enter the number that corresponds to your selection:")
+
