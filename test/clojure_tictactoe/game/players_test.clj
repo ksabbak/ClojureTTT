@@ -23,11 +23,16 @@
   (testing "player move logic"
     (deftest choose-player-function-test-player-one
       (testing "Returns the human-move function for player one"
-        (is (= input-getter/get-player-move (choose-player-function 0)))))
+        (is (= input-getter/get-player-move (choose-player-function "Computer" 0)))
+        (is (= input-getter/get-player-move (choose-player-function "Human" 0)))))
 
     (deftest choose-player-function-test-player-two
-      (testing "Returns the ai-move function for player two"
-        (is (= ai/make-move (choose-player-function 1)))))))
+      (testing "Returns the ai-move function for player two in a vs. computer game"
+        (is (= ai/make-move (choose-player-function "Computer" 1)))))
+
+    (deftest choose-player-function-test-player-two
+      (testing "Returns the human-move function for player two in a vs. human game"
+        (is (= input-getter/get-player-move (choose-player-function "Human vs. Human" 1)))))))
 
 (testing "Player Markers"
 

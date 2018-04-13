@@ -23,7 +23,9 @@
   (some? (some #(apply = %) (potential-wins board))))
 
 (defn assess-winner [board]
-  (first (some #(when (apply = %) %) (potential-wins board))))
+  (-> #(when (apply = %) %)
+    (some (potential-wins board))
+    (first)))
 
 (defn game-over? [board]
   (or

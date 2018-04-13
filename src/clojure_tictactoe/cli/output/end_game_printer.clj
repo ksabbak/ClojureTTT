@@ -4,3 +4,6 @@
 
 (defn game-won-message [winner]
   (str "Congratulations to player " winner "! You won!"))
+
+(defn end-game-printer [message]
+  (println message))

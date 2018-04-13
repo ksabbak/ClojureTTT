@@ -9,33 +9,35 @@
             ))
 
 (def standard-board-size 9)
+(def game-options ["Human vs Human" "Human vs. Computer"])
+(def players '("player 1" "player 2"))
 
 (defn player-move [move-function board marker]
   (board/mark-space (move-function board) marker board))
 
-(defn continue-game [board markers turn]
+(defn continue-game [board game-type markers turn]
   (let [new-board (player-move
                     (players/choose-player-function
-                      turn)
+                      game-type turn)
                     board
                     (markers
                       (players/current-player turn)))]
     (board-printer/print-board new-board)
     new-board))
 
-(defn game-loop [board markers turn]
+(defn game-loop [board game-type markers turn]
   (if-not (rules/game-over? board)
-    (let [new-board (continue-game board markers turn)]
-
-      (recur new-board markers (+ 1 turn)))
+    (let [new-board (continue-game board game-type markers turn)]
+      (recur new-board game-type markers (+ 1 turn)))
     (if-let [results (rules/assess-winner board)]
-      (println (end-printer/game-won-message results))
-      (println end-printer/game-tie-message))))
+      (end-printer/end-game-printer (end-printer/game-won-message results))
+      (end-printer/end-game-printer end-printer/game-tie-message))))
 
 (defn initialize-game []
   (instructions-printer/print-game-intro)
   (input-getter/continue-to-game)
-  (let [board (board/render-empty-board standard-board-size)
-        markers (players/acquire-both-markers '("you" "the computer"))]
+  (let [game-type (input-getter/get-game-type game-options)
+        board (board/render-empty-board standard-board-size)
+        markers (players/acquire-both-markers players)]
     (board-printer/print-board board)
-    (game-loop board markers 0)))
+    (game-loop board game-type markers 0)))

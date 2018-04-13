@@ -14,11 +14,11 @@
   (get-user-input)
   nil)
 
-(defn parse-move-input [input]
+(defn parse-move-input [input choice-limit]
   (let [formatted-input (read-string input)
         valid-numeral (and
                           (number? formatted-input)
-                          (< formatted-input 9))]
+                          (< formatted-input choice-limit))]
       (when valid-numeral
         formatted-input)))
 
@@ -27,17 +27,26 @@
   (get-user-input)
   )
 
-(defn get-player-choice []
+(defn get-player-choice [board-length]
   (println (str "Which space would you like to mark?"))
-  (if-let [choice (parse-move-input (get-user-input))]
+  (if-let [choice (parse-move-input (get-user-input) board-length)]
     choice
     (do (println "Sorry, looks like that's not possible, try again?")
-        (recur))))
+        (recur board-length))))
 
 (defn get-player-move [board]
+  (let [move (get-player-choice (count board))]
+    (if (board/space-is-open? move board)
+      move
+      (do (println "Sorry, that looks taken, try again")
+          (recur board)))))
+
+(defn get-game-type [options]
+  (println instructions-printer/game-choice-message)
+  (instructions-printer/print-stringified-options options)
   (loop []
-    (let [move (get-player-choice)]
-      (if (board/space-is-open? move board)
-        move
-        (do (println "Sorry, that looks taken, try again")
-            (recur))))))
+    (println instructions-printer/game-choice-request)
+    (let [choice-limit (+ (count options) 1)]
+      (if-let [choice (parse-move-input (get-user-input) choice-limit)]
+        (options (- choice 1))
+        (recur)))))
