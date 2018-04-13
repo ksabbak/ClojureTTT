@@ -43,7 +43,7 @@
 
 (defn get-game-type [options]
   (println instructions-printer/game-choice-message)
-  (instructions-printer/stringify-options options)
+  (instructions-printer/print-stringified-options options)
   (loop []
     (println instructions-printer/game-choice-request)
     (let [choice-limit (+ (count options) 1)]

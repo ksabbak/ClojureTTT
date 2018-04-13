@@ -19,12 +19,12 @@
   )
 
 (testing "Stringify options"
-  (testing "stringify-options"
+  (testing "print-stringified-options"
 
-    (deftest stringify-options-test-one
+    (deftest print-stringified-options-test-one
       (testing "Returns one option for a one item vector"
-        (is (= "1. one\n" (with-out-str (stringify-options ["one"]))))))
+        (is (= "1. one\n" (with-out-str (print-stringified-options ["one"]))))))
 
-    (deftest stringify-options-test-multiple
+    (deftest print-stringified-options-test-multiple
       (testing "Works on a vector with more than on item"
-        (is (= "1. one\n2. two\n3. three\n" (with-out-str (stringify-options ["one" "two" "three"]))))))))
+        (is (= "1. one\n2. two\n3. three\n" (with-out-str (print-stringified-options ["one" "two" "three"]))))))))

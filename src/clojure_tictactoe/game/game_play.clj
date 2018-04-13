@@ -10,6 +10,7 @@
 
 (def standard-board-size 9)
 (def game-options ["Human vs Human" "Human vs. Computer"])
+(def players '("player 1" "player 2"))
 
 (defn player-move [move-function board marker]
   (board/mark-space (move-function board) marker board))
@@ -37,6 +38,6 @@
   (input-getter/continue-to-game)
   (let [game-type (input-getter/get-game-type game-options)
         board (board/render-empty-board standard-board-size)
-        markers (players/acquire-both-markers '("player 1" "player 2"))]
+        markers (players/acquire-both-markers players)]
     (board-printer/print-board board)
     (game-loop board game-type markers 0)))

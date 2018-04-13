@@ -24,7 +24,7 @@ Examples:
 (defn print-marker-instructions [player]
   (println (str "What marker would you like for " player "?")))
 
-(defn stringify-options [options]
+(defn print-stringified-options [options]
   (->> options
     (map-indexed #(str (+ %1 1) ". " %2))
     (map println)
