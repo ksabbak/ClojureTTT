@@ -5,9 +5,9 @@
 
 (defn open-spaces [board]
   (->> board
-    (count)
-    (range)
-    (keep #(if (space-is-open? % board) %))))
+       (count)
+       (range)
+       (keep #(if (space-is-open? % board) %))))
 
 (defn mark-space [space marker board]
   (when (space-is-open? space board)

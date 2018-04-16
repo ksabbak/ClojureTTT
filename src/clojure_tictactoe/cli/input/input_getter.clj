@@ -17,15 +17,14 @@
 (defn parse-move-input [input choice-limit]
   (let [formatted-input (read-string input)
         valid-numeral (and
-                          (number? formatted-input)
-                          (< formatted-input choice-limit))]
-      (when valid-numeral
-        formatted-input)))
+                        (number? formatted-input)
+                        (< formatted-input choice-limit))]
+    (when valid-numeral
+      formatted-input)))
 
 (defn get-player-marker [player]
   (instructions-printer/print-marker-instructions player)
-  (get-user-input)
-  )
+  (get-user-input))
 
 (defn get-player-choice [board-length]
   (println (str "Which space would you like to mark?"))

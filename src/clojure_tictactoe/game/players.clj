@@ -5,13 +5,13 @@
 
 (defn acceptable-marker-option? [potential-marker]
   (-> potential-marker
-    (count)
-    (= 1)))
+      (count)
+      (= 1)))
 
 (defn distinct-markers? [markers]
   (->> markers
-    (apply =)
-    (not)))
+       (apply =)
+       (not)))
 
 (defn acquire-one-marker [player]
   (let [marker (input-getter/get-player-marker player)]

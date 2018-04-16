@@ -26,9 +26,9 @@ Examples:
 
 (defn print-stringified-options [options]
   (->> options
-    (map-indexed #(str (+ %1 1) ". " %2))
-    (map println)
-    (dorun)))
+       (map-indexed #(str (+ %1 1) ". " %2))
+       (map println)
+       (dorun)))
 
 (def game-choice-message
   "What kind of game would you like to play?\n")

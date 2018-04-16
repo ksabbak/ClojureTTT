@@ -16,4 +16,4 @@
 
 
 (defn print-board [spaces]
-   (println (render-board spaces)))
+  (println (render-board spaces)))

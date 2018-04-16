@@ -8,15 +8,14 @@
   (testing "print-game-intro"
     (deftest intro-game-message-test
       (testing "Intro messages"
-       (is (string/includes? (with-out-str (print-game-intro)) welcome-message))
-       (is (string/includes? (with-out-str (print-game-intro)) instructions-message))))))
+        (is (string/includes? (with-out-str (print-game-intro)) welcome-message))
+        (is (string/includes? (with-out-str (print-game-intro)) instructions-message))))))
 
 (testing "Markers"
   (testing "print-marker-instructions"
     (deftest print-marker-instructions-test
       (testing "displays passed param"
-        (is (string/includes? (with-out-str (print-marker-instructions "test")) "test?")))))
-  )
+        (is (string/includes? (with-out-str (print-marker-instructions "test")) "test?"))))))
 
 (testing "Stringify options"
   (testing "print-stringified-options"

@@ -11,7 +11,7 @@
   (let [side-length (board/side-length board)
         top-left-to-bottom-right-diagonal (take side-length (range 0 (count board) (+ 1 side-length)))
         bottom-left-to-top-right-diagonal (take side-length (range (- side-length 1) (count board) (- side-length 1)))]
-      (list top-left-to-bottom-right-diagonal bottom-left-to-top-right-diagonal)))
+    (list top-left-to-bottom-right-diagonal bottom-left-to-top-right-diagonal)))
 
 (defn all-win-options [board]
   (concat (diagonal-win-options board) (vertical-win-options board) (horizontal-win-options board)))
@@ -24,8 +24,8 @@
 
 (defn assess-winner [board]
   (-> #(when (apply = %) %)
-    (some (potential-wins board))
-    (first)))
+      (some (potential-wins board))
+      (first)))
 
 (defn game-over? [board]
   (or
