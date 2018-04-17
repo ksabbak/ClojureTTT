@@ -12,12 +12,9 @@
   (board/mark-space (move-function board) marker board))
 
 (defn continue-game [board game-type markers turn]
-  (let [new-board (player-move
-                    (players/choose-player-function
-                      game-type turn)
-                    board
-                    (markers
-                      (players/current-player turn)))]
+  (let [player-function (players/choose-player-function game-type turn)
+        marker (markers (players/current-player turn))
+        new-board (player-move player-function board marker)]
     (board-printer/print-board new-board)
     new-board))
 

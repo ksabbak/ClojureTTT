@@ -11,8 +11,7 @@
       (> user-input 0))))
 
 (defn valid-move? [user-input board]
-  (and
-    (board/space-is-open? user-input board)))
+  (board/space-is-open? user-input board))
 
 (defn acceptable-marker-option? [potential-marker]
   (-> potential-marker

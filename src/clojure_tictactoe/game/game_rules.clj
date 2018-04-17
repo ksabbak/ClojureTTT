@@ -22,12 +22,13 @@
 (defn winner? [board]
   (some? (some #(apply = %) (potential-wins board))))
 
-
-(defn check-for-equality [potential-wins board]
-  (when (apply potential-wins) board))
+(defn assess-potential-wins [potential-wins]
+  (when (apply = potential-wins) potential-wins))
 
 (defn assess-winner [board]
-  (first (some (check-for-equality potential-wins board))))
+  (-> assess-potential-wins
+      (some (potential-wins board))
+      (first)))
 
 (defn game-over? [board]
   (or
