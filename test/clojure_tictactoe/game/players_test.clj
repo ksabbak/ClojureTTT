@@ -34,36 +34,3 @@
       (testing "Returns the human-move function for player two in a vs. human game"
         (is (= input-getter/get-player-move (choose-player-function "Human vs. Human" 1)))))))
 
-(testing "Player Markers"
-
-  (testing "acceptable-marker-option?"
-
-    (deftest acceptable-marker-option?-test-too-long
-      (testing "returns false if the potential marker is longer than one char"
-        (is (false? (acceptable-marker-option? "Nope")))))
-
-    (deftest acceptable-marker-option?-test-good
-      (testing "returns true for markers that are only one char long"
-        (is (true? (acceptable-marker-option? "x"))))))
-
-  (testing "distinct-markers?"
-
-    (deftest distinct-markers?-test-redundant-markers
-      (testing "Returns false if both markers are the same"
-        (is (false? (distinct-markers? '("x" "x"))))))
-
-    (deftest distinct-markers?-test-distinct-markers
-      (testing "Returns true if markers are distinct"
-        (is (true? (distinct-markers? '("o" "x")))))))
-
-  (testing "acquire-one-marker"
-
-    (deftest acquire-one-marker-test
-      (testing "Only accepts string that is one char"
-        (is (= "x" (with-in-str (helper/make-input ["too long" " " "x"]) (acquire-one-marker "Player 1")))))))
-
-  (testing "acquire-both-markers"
-
-    (deftest acquire-both-markers-test
-      (testing "Only accepts distinct markers"
-        (is (= '("x" "o") (with-in-str (helper/make-input ["x" "x" "x" "o"]) (acquire-both-markers '("Player 1" "Player 2")))))))))

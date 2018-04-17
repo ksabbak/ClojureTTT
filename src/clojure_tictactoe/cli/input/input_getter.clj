@@ -1,7 +1,7 @@
 (ns clojure-tictactoe.cli.input.input-getter
   (:require [clojure.string :as string]
-            [clojure-tictactoe.game.board :as board]
-            [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]))
+            [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]
+            [clojure-tictactoe.cli.input.input-checker :as input-checker]))
 
 (defn get-user-input []
   (let [user-input (string/trim (read-line))]
@@ -14,30 +14,44 @@
   (get-user-input)
   nil)
 
-(defn parse-move-input [input choice-limit]
-  (let [formatted-input (read-string input)
-        valid-numeral (and
-                        (number? formatted-input)
-                        (< formatted-input choice-limit))]
-    (when valid-numeral
-      formatted-input)))
+(defn format-valid-numeral [number]
+  (- number 1))
+
+(defn format-input [input]
+  (if (or
+        (empty? input)
+        (string/includes? input "#"))
+    input
+    (read-string input)))
 
 (defn get-player-marker [player]
   (instructions-printer/print-marker-instructions player)
-  (get-user-input))
+  (let [choice (get-user-input)]
+    (if (input-checker/acceptable-marker-option? choice)
+      choice
+      (do (println "\nSorry, your token can only be one character long, try again.")
+          (recur player)))))
 
-(defn get-player-choice [board-length]
+(defn acquire-both-markers [players]
+  (let [markers (map get-player-marker players)]
+    (if (input-checker/distinct-markers? markers)
+      (into [] markers)
+      (do (println "\nSorry, the tokens can't match. Try again.")
+        (recur players)))))
+
+(defn get-player-choice [board]
   (println (str "Which space would you like to mark?"))
-  (if-let [choice (parse-move-input (get-user-input) board-length)]
-    choice
-    (do (println "Sorry, looks like that's not possible, try again?")
-        (recur board-length))))
+    (let [choice (format-input (get-user-input))]
+      (if (input-checker/valid-numeral? choice board)
+        (format-valid-numeral choice)
+        (do (println "\nSorry, that's not a valid space, try again")
+            (recur board)))))
 
 (defn get-player-move [board]
-  (let [move (get-player-choice (count board))]
-    (if (board/space-is-open? move board)
+  (let [move (get-player-choice board)]
+    (if (input-checker/valid-move? move board)
       move
-      (do (println "Sorry, that looks taken, try again")
+      (do (println "\nSorry, that looks taken, try again")
           (recur board)))))
 
 (defn get-game-type [options]
@@ -45,7 +59,8 @@
   (instructions-printer/print-stringified-options options)
   (loop []
     (println instructions-printer/game-choice-request)
-    (let [choice-limit (+ (count options) 1)]
-      (if-let [choice (parse-move-input (get-user-input) choice-limit)]
-        (options (- choice 1))
-        (recur)))))
+    (let [choice (format-input (get-user-input))]
+      (if (input-checker/valid-numeral? choice options)
+        (options (format-valid-numeral choice))
+        (do (println "\nThat's not a valid game type, try again.")
+            (recur))))))
