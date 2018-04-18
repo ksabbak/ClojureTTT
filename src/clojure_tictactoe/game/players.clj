@@ -1,21 +1,18 @@
 (ns clojure-tictactoe.game.players
-  (:require [clojure-tictactoe.game.computer-opponent :as ai]
+  (:require [clojure.string :as string]
+            [clojure-tictactoe.game.computer-opponent :as ai]
             [clojure-tictactoe.cli.input.input-getter :as input-getter]))
 
-(def player-atom (atom "x"))
+(defn current-player [turn]
+  (if (even? turn)
+    (let [first-player 0]
+      first-player)
+    (let [second-player 1]
+      second-player)))
 
-(defn switch-player [current-player]
-  (if (= current-player "x")
-    "o"
-    "x"))
-
-(defn player-swap []
-  (swap! player-atom switch-player))
-
-(defn human-player-move [board]
-  (input-getter/get-player-move board))
-
-(defn choose-player-function [player]
-  (if (= player "x")
-    human-player-move
-    ai/make-move))
+(defn choose-player-function [game-type turn]
+  (if (and
+        (= 1 (current-player turn))
+        (string/includes? game-type "Computer"))
+    ai/make-move
+    input-getter/get-player-move))

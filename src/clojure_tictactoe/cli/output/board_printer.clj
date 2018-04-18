@@ -1,19 +1,24 @@
 (ns clojure-tictactoe.cli.output.board-printer
   (:require [clojure-tictactoe.game.board :as board]))
 
+(defn space-content-renderer [space]
+  (if (int? space)
+    (+ space 1)
+    space))
+
 (defn render-board [spaces]
-  (str  " " (spaces 0) " | "
-       (spaces 1) " | "
-       (spaces 2)
+  (str  " " (space-content-renderer (spaces 0)) " | "
+       (space-content-renderer (spaces 1)) " | "
+       (space-content-renderer (spaces 2))
        " \n===+===+===\n "
-       (spaces 3) " | "
-       (spaces 4) " | "
-       (spaces 5)
+       (space-content-renderer (spaces 3)) " | "
+       (space-content-renderer (spaces 4)) " | "
+       (space-content-renderer (spaces 5))
        " \n===+===+===\n "
-       (spaces 6) " | "
-       (spaces 7) " | "
-       (spaces 8) " \n"))
+       (space-content-renderer (spaces 6)) " | "
+       (space-content-renderer (spaces 7)) " | "
+       (space-content-renderer (spaces 8)) " \n"))
 
 
 (defn print-board [spaces]
-   (println (render-board spaces)))
+  (println (render-board spaces)))
