@@ -9,9 +9,9 @@
 
 (defn diagonal-win-options [board]
   (let [side-length (board/side-length board)
-        top-left-to-bottom-right-diagonal (take side-length (range 0 (count board) (+ 1 side-length)))
-        bottom-left-to-top-right-diagonal (take side-length (range (- side-length 1) (count board) (- side-length 1)))]
-    (vector top-left-to-bottom-right-diagonal bottom-left-to-top-right-diagonal)))
+        top-left-diagonal (take side-length (range 0 (count board) (+ 1 side-length)))
+        bottom-left-diagonal (take side-length (range (- side-length 1) (count board) (- side-length 1)))]
+    (vector top-left-diagonal bottom-left-diagonal)))
 
 (defn all-win-options [board]
   (concat (diagonal-win-options board) (vertical-win-options board) (horizontal-win-options board)))

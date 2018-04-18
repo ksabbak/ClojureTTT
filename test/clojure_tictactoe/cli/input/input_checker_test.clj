@@ -20,8 +20,7 @@
     (deftest valid-numeral?-test-valid
       (is (true? (valid-numeral? 1 ["x" 1 2 3 4 5 6 7 8])))
       (is (true? (valid-numeral? 5 ["x" 1 2 3 4 5 6 7 8])))
-      (is (true? (valid-numeral? 9 ["x" 1 2 3 4 5 6 7 8])))
-    ))
+      (is (true? (valid-numeral? 9 ["x" 1 2 3 4 5 6 7 8])))))
 
   (testing "valid-move?"
     (deftest valid-move?-test-taken-space

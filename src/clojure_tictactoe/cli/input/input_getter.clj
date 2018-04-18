@@ -18,9 +18,9 @@
   (- number 1))
 
 (defn format-input [input]
-  (if (or
-        (empty? input)
-        (string/includes? input "#"))
+  (if-let [unreadable (or
+                        (empty? input)
+                        (string/includes? input "#"))]
     input
     (read-string input)))
 
@@ -37,15 +37,15 @@
     (if (input-checker/distinct-markers? markers)
       (into [] markers)
       (do (println "\nSorry, the tokens can't match. Try again.")
-        (recur players)))))
+          (recur players)))))
 
 (defn get-player-choice [board]
   (println (str "Which space would you like to mark?"))
-    (let [choice (format-input (get-user-input))]
-      (if (input-checker/valid-numeral? choice board)
-        (format-valid-numeral choice)
-        (do (println "\nSorry, that's not a valid space, try again")
-            (recur board)))))
+  (let [choice (format-input (get-user-input))]
+    (if (input-checker/valid-numeral? choice board)
+      (format-valid-numeral choice)
+      (do (println "\nSorry, that's not a valid space, try again")
+          (recur board)))))
 
 (defn get-player-move [board]
   (let [move (get-player-choice board)]

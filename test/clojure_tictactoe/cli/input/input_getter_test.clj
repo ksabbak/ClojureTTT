@@ -4,6 +4,7 @@
             [clojure-tictactoe.helpers :as helper]
             [clojure-tictactoe.cli.input.input-getter :refer :all]
             [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]))
+
 (testing "General"
 
   (testing "format-input"
@@ -21,8 +22,6 @@
     (deftest format-input-string-other
       (testing "returns the symbol of any non-empty, non numeric string"
         (is (true? (symbol? (format-input "once this was a string"))))))))
-
-
 
 (testing "Game start"
 
