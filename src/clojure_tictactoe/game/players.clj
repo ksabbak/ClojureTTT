@@ -14,5 +14,5 @@
   (if (and
         (= 1 (current-player turn))
         (string/includes? game-type "Computer"))
-    ai/make-move
+    ai/get-move
     input-getter/get-player-move))
