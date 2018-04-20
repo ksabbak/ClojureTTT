@@ -47,12 +47,12 @@
       (do (println "\nSorry, that's not a valid space, try again")
           (recur board)))))
 
-(defn get-player-move [board]
+(defn get-player-move [board marker]
   (let [move (get-player-choice board)]
     (if (input-checker/valid-move? move board)
       move
       (do (println "\nSorry, that looks taken, try again")
-          (recur board)))))
+          (recur board marker)))))
 
 (defn get-game-type [options]
   (println instructions-printer/game-choice-message)
