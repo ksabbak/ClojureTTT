@@ -38,8 +38,7 @@
   (let [points (- (+ (count board) 1) (deduce-turn board))]
     (if is-current-player
       points
-      (* points -1)
-      )))
+      (* points -1))))
 
 (defn choose-best-score [is-current-player scores]
   (if is-current-player
@@ -76,6 +75,5 @@
         markers {:self marker, :opponent opponent-marker}
         player-turn? (get-turn-determiner board)]
         (mini-max board markers player-turn? true)))
-  ; (rand-nth (board/open-spaces board)))
 
 
