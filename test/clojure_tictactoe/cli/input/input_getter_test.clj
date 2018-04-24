@@ -39,12 +39,12 @@
 
     (deftest get-option-choice-test-display
       (testing "Prints proper message"
-        (is (string/includes? (with-out-str (with-in-str "1" (get-option-choice ["Pie" "Cake" "Ice cream"]))) instructions-printer/game-choice-message))
-        (is (string/includes? (with-out-str (with-in-str "1" (get-option-choice ["Pie" "Cake" "Ice cream"]))) "1. Pie\n2. Cake\n3. Ice cream"))))
+        (is (string/includes? (with-out-str (with-in-str "1" (get-option-choice ["Pie" "Cake" "Ice cream"] instructions-printer/game-choice-message))) instructions-printer/game-choice-message))
+        (is (string/includes? (with-out-str (with-in-str "1" (get-option-choice ["Pie" "Cake" "Ice cream"] "Pick a dessert"))) "1. Pie\n2. Cake\n3. Ice cream"))))
 
     (deftest get-option-choice-test-input
       (testing "Doesn't accept input that isn't 1 or 2"
-        (is (= (with-in-str (helper/make-input ["Alpha chars" "#" "3" "" "2"]) (get-option-choice ["Cake" "Pie"])) "Pie"))))))
+        (is (= (with-in-str (helper/make-input ["Alpha chars" "#" "3" "" "2"]) (get-option-choice ["Cake" "Pie"] "Cake or pie?")) "Pie"))))))
 
 
 (testing "Player moves"
@@ -92,10 +92,3 @@
         (is (string/includes?
               (with-out-str (with-in-str (helper/make-input ["x" "x" "x" "o"]) (acquire-both-markers '("Player 1" "Player 2"))))
               "Sorry, the tokens can't match. Try again."))))))
-
-(testing "Board Size"
-  (testing "parse-board-choice"
-    (deftest render-empty-board-test
-      (testing "returns an empty board of appropriate size"
-        (is (= 9 (parse-board-choice "3x3")))
-        (is (= 16 (parse-board-choice "4x4")))))))
