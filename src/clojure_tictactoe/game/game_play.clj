@@ -8,6 +8,10 @@
             [clojure-tictactoe.game.game-rules :as rules]
             ))
 
+(defn get-board-size [choice]
+  (let [side-length (read-string (str (first choice)))]
+        (* side-length side-length)))
+
 (defn player-move [move-function board marker]
   (board/mark-space (move-function board) marker board))
 
@@ -32,8 +36,9 @@
   (let [standard-board-size 9
         game-options ["Human vs Human" "Human vs. Computer"]
         players '("player 1" "player 2")
-        game-type (input-getter/get-game-type game-options)
-        board (board/render-empty-board standard-board-size)
+        game-type (input-getter/get-option-choice game-options instructions-printer/game-choice-message)
+        board-choice (input-getter/get-option-choice ["3x3" "4x4"] instructions-printer/board-size-message)
+        board (board/render-empty-board (get-board-size board-choice))
         markers (input-getter/acquire-both-markers players)]
     (board-printer/print-board board)
     (game-loop board game-type markers 0)))
