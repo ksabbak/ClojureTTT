@@ -54,13 +54,15 @@
       (do (println "\nSorry, that looks taken, try again")
           (recur board marker)))))
 
-(defn get-game-type [options]
-  (println instructions-printer/game-choice-message)
+(defn get-option-choice [options intro]
+  (println intro)
   (instructions-printer/print-stringified-options options)
   (loop []
-    (println instructions-printer/game-choice-request)
+    (println instructions-printer/input-choice-request)
     (let [choice (format-input (get-user-input))]
       (if (input-checker/valid-numeral? choice options)
         (options (format-valid-numeral choice))
-        (do (println "\nThat's not a valid game type, try again.")
+        (do (println "\nThat's not a valid choice, try again.")
             (recur))))))
+
+

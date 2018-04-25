@@ -33,6 +33,9 @@ Examples:
 (def game-choice-message
   "What kind of game would you like to play?\n")
 
-(def game-choice-request
+(def board-size-message
+  "What size board would you like to play on?\n")
+
+(def input-choice-request
   "\nPlease enter the number that corresponds to your selection:")
 
