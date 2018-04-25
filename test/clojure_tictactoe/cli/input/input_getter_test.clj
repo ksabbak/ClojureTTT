@@ -66,7 +66,7 @@
   (testing "get-player-move"
     (deftest get-player-move-test
       (testing "Doesn't accept taken input, does accept open space"
-        (is (= (with-in-str (helper/make-input ["1" "9"]) (get-player-move ["x" 1 2 3 4 5 6 7 8])) 8 ))))))
+        (is (= (with-in-str (helper/make-input ["1" "9"]) (get-player-move ["x" 1 2 3 4 5 6 7 8] "x")) 8 ))))))
 
 (testing "Player Markers"
 

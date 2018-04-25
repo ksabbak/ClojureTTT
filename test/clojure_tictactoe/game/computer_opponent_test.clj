@@ -50,11 +50,11 @@
         (is (not (= ">" (assign-opponent-marker ">"))))))
 
     (deftest assign-opponent-marker-test-plus-one
-          (testing "Assign opponent marker is always one char ahead of the ai marker (to avoid collision)"
-        (is (= "y" (assign-opponent-marker "x")))
-        (is (= "Y" (assign-opponent-marker "X")))
-        (is (= "2" (assign-opponent-marker "1")))
-        (is (= "?" (assign-opponent-marker ">"))))))
+          (testing "Assign opponent marker is always x unless the computer is x, in which case it's o"
+        (is (= "o" (assign-opponent-marker "x")))
+        (is (= "x" (assign-opponent-marker "X")))
+        (is (= "x" (assign-opponent-marker "1")))
+        (is (= "x" (assign-opponent-marker ">"))))))
 
   (testing "deduce-opponent-marker"
 
@@ -76,12 +76,12 @@
 
       (deftest get-opponent-marker-test-no-play
         (testing "Assigns appropriate marker to opponent when no moves have been made"
-          (is (= (get-opponent-marker [0 1 2 3 4 5 6 7 8] "o") "p"))))
+          (is (= (get-opponent-marker [0 1 2 3 4 5 6 7 8] "o") "x"))))
 
       (deftest get-opponent-marker-test-one-move
         (testing "Assigns appropriate marker to opponent when one move has been made"
           (is (= (get-opponent-marker [0 "x" 2 3 4 5 6 7 8] "o") "x"))
-          (is (= (get-opponent-marker [0 "o" 2 3 4 5 6 7 8] "o") "p"))))
+          (is (= (get-opponent-marker [0 "o" 2 3 4 5 6 7 8] "o") "x"))))
 
       (deftest get-opponent-marker-test-multiple
         (testing "Assigns appropriate marker when many moves have been made"

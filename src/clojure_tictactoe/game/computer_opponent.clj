@@ -3,13 +3,9 @@
             [clojure-tictactoe.game.game-rules :as rules]))
 
 (defn assign-opponent-marker [self-marker]
-  (->> self-marker
-    (seq)
-    (first)
-    (int)
-    (+ 1)
-    (char)
-    (str)))
+  (if (= "x" self-marker)
+    "o"
+    "x"))
 
 (defn deduce-opponent-marker [board self-marker]
   (->> board
@@ -76,4 +72,5 @@
         player-turn? (get-turn-determiner board)]
         (mini-max board markers player-turn? true)))
 
+; (def memominimax (memoize mini-max))
 
