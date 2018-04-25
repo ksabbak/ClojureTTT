@@ -21,3 +21,8 @@
 
 (defn side-length [board]
   (int (Math/sqrt (count board))))
+
+(defn parse-board-choice [choice]
+  (let [side-length (read-string (str (first type)))
+        length (* side-length side-length)]
+    (render-empty-board length)))
