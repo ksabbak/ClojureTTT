@@ -1,16 +1,13 @@
 (ns clojure-tictactoe.game.game-play
   (:require [clojure-tictactoe.cli.output.board-printer :as board-printer]
+            [clojure-tictactoe.cli.output.end-game-printer :as end-printer]
             [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]
             [clojure-tictactoe.cli.input.input-getter :as input-getter]
-            [clojure-tictactoe.cli.output.end-game-printer :as end-printer]
-            [clojure-tictactoe.game.players :as players]
+            [clojure-tictactoe.cli.input.input-translator :as input-translator]
             [clojure-tictactoe.game.board :as board]
             [clojure-tictactoe.game.game-rules :as rules]
+            [clojure-tictactoe.game.players :as players]
             ))
-
-(defn get-board-size [choice]
-  (let [side-length (read-string (str (first choice)))]
-        (* side-length side-length)))
 
 (defn player-move [move-function board marker]
   (board/mark-space (move-function board) marker board))
@@ -34,11 +31,13 @@
   (instructions-printer/print-game-intro)
   (input-getter/continue-to-game)
   (let [standard-board-size 9
-        game-options ["Human vs Human" "Human vs. Computer"]
+        game-options ["Human vs Human" "Human vs. Computer" "Computer vs. Human"]
+        board-options ["3x3" "4x4"]
         players '("player 1" "player 2")
         game-type (input-getter/get-option-choice game-options instructions-printer/game-choice-message)
-        board-choice (input-getter/get-option-choice ["3x3" "4x4"] instructions-printer/board-size-message)
-        board (board/render-empty-board (get-board-size board-choice))
+        board-choice (input-getter/get-option-choice board-options instructions-printer/board-size-message)
+        board (board/render-empty-board (input-translator/get-board-size board-choice))
+        turn (input-translator/get-first-turn game-type)
         markers (input-getter/acquire-both-markers players)]
     (board-printer/print-board board)
-    (game-loop board game-type markers 0)))
+    (game-loop board game-type markers turn)))
