@@ -1,5 +1,10 @@
 (ns clojure-tictactoe.cli.input.input-translator
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string]
+            [clojure-tictactoe.cli.output.board-printer :as board-printer]
+            [clojure-tictactoe.cli.output.end-game-printer :as end-printer]
+            [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]
+            [clojure-tictactoe.cli.input.input-getter :as input-getter]
+            [clojure-tictactoe.cli.input.input-translator :as input-translator]))
 
 (defn get-board-size [choice]
   (let [side-length (read-string (str (first choice)))]
