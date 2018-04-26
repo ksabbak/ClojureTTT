@@ -28,7 +28,7 @@
 
     (deftest choose-player-function-test-player-two
       (testing "Returns the ai-move function for player two in a vs. computer game"
-        (is (= ai/make-move (choose-player-function "Computer" 1)))))
+        (is (= ai/get-move (choose-player-function "Computer" 1)))))
 
     (deftest choose-player-function-test-player-two
       (testing "Returns the human-move function for player two in a vs. human game"

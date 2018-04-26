@@ -10,7 +10,7 @@
             ))
 
 (defn player-move [move-function board marker]
-  (board/mark-space (move-function board) marker board))
+  (board/mark-space (move-function board marker) marker board))
 
 (defn continue-game [board game-type markers turn]
   (let [player-function (players/choose-player-function game-type turn)
