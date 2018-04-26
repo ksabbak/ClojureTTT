@@ -22,21 +22,31 @@
 
     (deftest get-move-test-takes-immediate-win
       (testing "will take the winning move"
-        (is (= (get-move ["x" "x" 2 3 "o" 5 6 "o" 8] "x") 2))
-        (is (= (get-move ["x" 1 2 "o" "x" 5 6 "o" 8] "x") 8))
-        (is (= (get-move ["x" 1 "o" "x" 4 5 6 "o" 8] "x") 6))))
+        (is (= 2 (get-move ["x" "x" 2 3 "o" 5 6 "o" 8] "x")))
+        (is (= 8 (get-move ["x" 1 2 "o" "x" 5 6 "o" 8] "x")))
+        (is (= 6 (get-move ["x" 1 "o" "x" 4 5 6 "o" 8] "x")))
+        (is (= 3 (get-move ["x" "x" "x" 3 "o" "o" 6 7 "o" 9 10 11 12 13 14 15] "x")))
+        (is (= 12 (get-move ["x" 1 "o" 3 "x" "o" 6 "o" "x" 9 10 11 12 13 14 15] "x")))
+        (is (= 10 (get-move ["x" 1 "o" 3 "o" "x" 6 "o" 8 9 10 11 12 13 14 "x"] "x")))
+        ))
 
     (deftest get-move-test-stops-immediate-loss
       (testing "will stop the opponent from winning"
-        (is (= (get-move ["x" "x" 2 3 "o" 5 6 "o" 8] "o") 2))
-        (is (= (get-move ["x" 1 2 "o" "x" 5 6 "o" 8] "o") 8))
-        (is (= (get-move ["x" 1 "o" "x" 4 5 6 "o" 8] "o") 6))))
+        (is (= 2 (get-move ["x" "x" 2 3 "o" 5 6 "o" 8] "o")))
+        (is (= 8 (get-move ["x" 1 2 "o" "x" 5 6 "o" 8] "o")))
+        (is (= 6 (get-move ["x" 1 "o" "x" 4 5 6 "o" 8] "o")))
+        (is (= 3 (get-move ["x" "x" "x" 3 "o" "o" 6 7 "o" 9 10 11 12 13 14 15] "o")))
+        (is (= 12 (get-move ["x" 1 "o" 3 "x" "o" 6 "o" "x" 9 10 11 12 13 14 15] "o")))
+        (is (= 10 (get-move ["x" 1 "o" 3 "o" "x" 6 "o" 8 9 10 11 12 13 14 "x"] "o")))
+        ))
 
     (deftest get-move-test-forks
       (testing "will stop forks"
         (is (some #(= (get-move ["x" 1 2 3 "o" 5 6 7 "x"] "o") %) [1 3 5 7]))
         (is (not (some #(= (get-move ["x" 1 2 3 "o" 5 6 "x" 8] "o") %) [1 2])))
-        (is (some #(= (get-move ["x" 1 2 3 "x" 5 6 7 "o"] "o") %) [2 6]))))))
+        (is (some #(= (get-move ["x" 1 2 3 "x" 5 6 7 "o"] "o") %) [2 6]))
+        (is (some #(= (get-move [0 1 2 "o" 4 "x" "o" "o" 8 9 "x" "x" "o" "x" 14 15] "o") %) [1 8 9]))
+        ))))
 
 (testing "Help with markers"
 
@@ -90,11 +100,7 @@
     (testing "turn-marker"
       (deftest turn-marker-test-self
         (testing "Returns the 'self' marker if the ai is the current player"
-          (is (= (turn-marker true {:self "+" :opponent "-"}) "+"))))
-
-      (deftest turn-marker-test-opponent
-        (testing "returns the 'opponent' marker if the ai is not the current player"
-          (is (= (turn-marker false {:self "1" :opponent "0"}) "0"))))))
+          (is (= {:current-marker "-", :next-marker "+"} (swap-markers {:current-marker "+" :next-marker "-"})))))))
 
 (testing "Help with turns"
   (testing "deduce-turn"
@@ -120,23 +126,23 @@
   (testing "win-points"
 
     (deftest win-points-test-ai-won
-      (testing "returns positive points if AI wins"
-        (is (pos? (win-points true ["x" "o" 2 "o" "x" 5 6 7 "x"])))))
+      (testing "returns positive points if AI turn"
+        (is (pos? (win-points ["x" "o" 2 "o" "x" 5 6 7 8] even?)))))
 
     (deftest win-points-test-opponent-won
-      (testing "returns negative points if opponent wins"
-        (is (neg? (win-points false ["x" "o" 2 "o" "x" 5 6 7 "x"]))))))
+      (testing "returns negative points if opponent turn"
+        (is (neg? (win-points ["x" "o" 2 "o" "x" 5 6 7 8] odd?))))))
 
   (testing "choose-best-score"
 
       (deftest choose-best-score-test-self
 
         (testing "Returns the highest score if the current player is the AI"
-          (is (= (choose-best-score true [10 0 -10 -10 -10 0]) 10))
-          (is (= (choose-best-score true [-10 -10 -10 0]) 0))
-          (is (= (choose-best-score true [-10 -10 -10]) -10)))
+          (is (= 10 (choose-best-score [10 0 -10 -10 -10 0] [0 1 2 3 4 5 6 7 8] even?)))
+          (is (= 0 (choose-best-score [-10 -10 -10 0] [0 1 2 3 4 5 6 "x" 8] odd?)))
+          (is (= -10 (choose-best-score [-10 -10 -10]["o" 1 "x" 3 4 5 6 7 "x"] odd?))))
 
         (testing "Returns the lowest score if the current player is not the AI"
-          (is (= (choose-best-score false [10 0 -10 -10 -10 0]) -10))
-          (is (= (choose-best-score false [10 10 10 0]) 0))
-          (is (= (choose-best-score false [10 10 10]) 10))))))
+          (is (= -10 (choose-best-score [10 0 -10 -10 -10 0] [0 1 2 3 4 5 6 7 8] odd?)))
+          (is (= 0 (choose-best-score [10 10 10 0] [0 1 2 3 4 5 6 "x" 8] even?)))
+          (is (= 10 (choose-best-score [10 10 10] ["o" 1 "x" 3 4 5 6 7 "x"] even?)))))))

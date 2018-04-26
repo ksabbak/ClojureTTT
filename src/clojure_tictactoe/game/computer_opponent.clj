@@ -25,52 +25,56 @@
     even?
     odd?))
 
-(defn turn-marker [is-current-player markers]
-  (if is-current-player
-    (:self markers)
-    (:opponent markers)))
+(defn is-current-player? [board player-turn?]
+  (let [turn (deduce-turn board)]
+        (player-turn? turn)))
 
-(defn win-points [is-current-player board]
-  (let [points (- (+ (count board) 1) (deduce-turn board))]
-    (if is-current-player
+(defn swap-markers [markers]
+    {:current-marker (:next-marker markers) :next-marker (:current-marker markers)})
+
+(defn win-points [board player-turn?]
+  (let [turn (deduce-turn board)
+        length (count board)
+        points (- (+ length 1) turn)]
+    (if (is-current-player? board player-turn?)
       points
       (* points -1))))
 
-(defn choose-best-score [is-current-player scores]
-  (if is-current-player
+(defn choose-best-score [scores board player-turn?]
+  (if (is-current-player? board player-turn?)
     (apply max scores)
     (apply min scores)))
 
-(declare score-turn, mini-max)
+(declare mini-max memominimax)
 
 (defn score-turn [board space markers player-turn?]
-  (let [turn (deduce-turn board)
-        is-current-player (player-turn? turn)
-        turn-marker (turn-marker is-current-player markers)
-        new-board (board/mark-space space turn-marker board) ]
+  (let [turn-marker (:current-marker markers)
+        new-board (board/mark-space space turn-marker board)]
         (cond
-          (rules/winner? new-board) (win-points is-current-player board)
+          (rules/winner? new-board) (win-points board player-turn?)
           (board/board-full? new-board) 0
-          :else (mini-max new-board markers player-turn?))))
+          :else (memominimax new-board (swap-markers markers) player-turn?))))
+
+(defn calculate-scores [board markers player-turn?]
+  (map #(score-turn board % markers player-turn?) (board/open-spaces board)))
 
 (defn mini-max
   ([board markers player-turn?]
-    (let [scores  (map #(score-turn board % markers player-turn?) (board/open-spaces board))
-        turn (deduce-turn board)
-        is-current-player (player-turn? turn)]
-      (choose-best-score is-current-player scores)))
-  ([board markers player-turn? fix-this]
-    (let [scores (map #(score-turn board % markers player-turn?) (board/open-spaces board))
+    (let [scores  (calculate-scores board markers player-turn?)]
+      (choose-best-score scores board player-turn?))))
+
+(def memominimax (memoize mini-max))
+
+(defn best-move [board markers player-turn?]
+  (let [scores (calculate-scores board markers player-turn?)
           scored-spaces (zipmap (board/open-spaces board) scores)
           choice (key (apply max-key val scored-spaces))]
-          choice)))
-
+          choice))
 
 (defn get-move [board marker]
   (let [opponent-marker (get-opponent-marker board marker)
-        markers {:self marker, :opponent opponent-marker}
+        markers {:current-marker marker, :next-marker opponent-marker}
         player-turn? (get-turn-determiner board)]
-        (mini-max board markers player-turn? true)))
+        (best-move board markers player-turn?)))
 
-; (def memominimax (memoize mini-max))
 
