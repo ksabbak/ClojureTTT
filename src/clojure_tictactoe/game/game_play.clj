@@ -19,19 +19,21 @@
     new-board))
 
 (defn game-loop [board game-type markers turn]
+  (board-printer/print-board board)
   (if-not (rules/game-over? board)
     (let [new-board (move board game-type markers turn)]
       (board-printer/print-board new-board)
       (recur new-board game-type markers (inc turn)))
-    (if-let [results (rules/assess-winner board)]
+    (do
+      (if-let [results (rules/assess-winner board)]
       (end-printer/end-game-printer (end-printer/game-won-message results))
-      (end-printer/end-game-printer m/end-tie)))
-  (when (cli/restart?)
-    (let [board-size (count board)
-          fresh-board (board/render-empty-board board-size)
-          turns-played (count (remove number? board))
-          start-turn (- turn turns-played)]
-      (recur fresh-board game-type markers start-turn))))
+      (end-printer/end-game-printer m/end-tie))
+      (when (cli/restart?)
+        (let [board-size (count board)
+              fresh-board (board/render-empty-board board-size)
+              turns-played (count (remove number? board))
+              start-turn (- turn turns-played)]
+          (recur fresh-board game-type markers start-turn))))))
 
 (defn initialize-game []
   (cli/intro-game)
@@ -41,5 +43,4 @@
         board (board/render-empty-board board-size)
         turn (:turn options)
         markers (:markers options)]
-    (board-printer/print-board board)
     (game-loop board game-type markers turn)))
