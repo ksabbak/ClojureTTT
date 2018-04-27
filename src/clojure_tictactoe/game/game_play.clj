@@ -4,10 +4,10 @@
             [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]
             [clojure-tictactoe.cli.output.messages :as m]
             [clojure-tictactoe.cli.input.input-getter :as input-getter]
-            [clojure-tictactoe.cli.input.input-translator :as input-translator]
             [clojure-tictactoe.game.board :as board]
             [clojure-tictactoe.game.game-rules :as rules]
             [clojure-tictactoe.game.players :as players]
+            [clojure-tictactoe.cli.cli-controller :as cli]
             ))
 
 (defn player-move [move-function board marker]
@@ -29,16 +29,12 @@
       (end-printer/end-game-printer m/end-tie))))
 
 (defn initialize-game []
-  (instructions-printer/print-game-intro)
-  (input-getter/continue-to-game)
-  (let [standard-board-size 9
-        game-options ["Human vs Human" "Human vs. Computer" "Computer vs. Human"]
-        board-options ["3x3" "4x4"]
-        players '("player 1" "player 2")
-        game-type (input-getter/get-option-choice game-options m/game-choice-message)
-        board-choice (input-getter/get-option-choice board-options m/board-size-message)
-        board (board/render-empty-board (input-translator/get-board-size board-choice))
-        turn (input-translator/get-first-turn game-type)
-        markers (input-getter/acquire-both-markers players)]
+  (cli/intro-game)
+  (let [options (cli/game-options)
+        game-type (:game-type options)
+        board-size (:board-size options)
+        board (board/render-empty-board board-size)
+        turn (:turn options)
+        markers (:markers options)]
     (board-printer/print-board board)
     (game-loop board game-type markers turn)))

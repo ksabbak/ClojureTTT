@@ -1,4 +1,4 @@
-(ns clojure-tictactoe.cli.input.input-translator-test
+(ns clojure-tictactoe.cli.cli-controller
   (:require [clojure.test :refer :all]
             [clojure.string :as string]
             [clojure-tictactoe.helpers :as helper]

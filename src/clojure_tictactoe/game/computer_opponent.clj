@@ -49,10 +49,12 @@
 
 (defn score-turn [board space markers player-turn?]
   (let [turn-marker (:current-marker markers)
+        turn (deduce-turn board)
+        too-deep (+ (board/side-length board) (- (board/side-length board) 1))
         new-board (board/mark-space space turn-marker board)]
         (cond
           (rules/winner? new-board) (win-points board player-turn?)
-          (board/board-full? new-board) 0
+          (or (board/board-full? new-board) (> turn too-deep)) 0
           :else (memominimax new-board (swap-markers markers) player-turn?))))
 
 (defn calculate-scores [board markers player-turn?]

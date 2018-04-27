@@ -23,8 +23,8 @@
 
     (deftest print-stringified-options-test-one
       (testing "Returns one option for a one item vector"
-        (is (= "1. one\n" (with-out-str (print-stringified-options ["one"]))))))
+        (is (= "\n1. one\n\n" (with-out-str (print-stringified-options ["one"]))))))
 
     (deftest print-stringified-options-test-multiple
       (testing "Works on a vector with more than on item"
-        (is (= "1. one\n2. two\n3. three\n" (with-out-str (print-stringified-options ["one" "two" "three"]))))))))
+        (is (= "\n1. one\n2. two\n3. three\n\n" (with-out-str (print-stringified-options ["one" "two" "three"]))))))))
