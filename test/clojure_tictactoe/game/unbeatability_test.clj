@@ -15,18 +15,19 @@
     (map #(board/mark-space % human-marker board) spaces)))
 
 (defn computer-simulator [board]
-  (computer-opponent/get-move board computer-marker))
+  (let [move (computer-opponent/get-move board computer-marker)]
+    (board/mark-space move computer-marker board)))
 
 (defn simulator [board]
   (let [boards (map #(computer-simulator %) (human-simulator board))
         outcomes (map #(= human-marker (game-rules/winner? %)) boards)]
     (if (every? false? outcomes)
       (let [new-boards (filter #(not (game-rules/game-over? %)) boards)]
-      (do (map simulator new-boards)
+        (map simulator new-boards)
           true)
-      false))))
+      false)))
 
 (deftest computer-is-unbeatable
   (testing "every possible game"
-    (is (simulator starting-board))))
+    (is (true? (simulator starting-board)))))
 
