@@ -22,6 +22,9 @@
   (instructions-printer/print-game-intro)
   (input-getter/continue-to-game))
 
+(defn restart? []
+  (let [choice (input-getter/get-option-choice m/yes-no m/restart)]
+    (= "Yes!" choice)))
 
 (defn game-options []
   (let [game-type (input-getter/get-option-choice m/game-options m/game-choice-message)

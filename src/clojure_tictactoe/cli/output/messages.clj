@@ -61,8 +61,13 @@ Examples:
 (def end-won
   "! You won!")
 
+(def restart
+  "Would you like to play again?")
+
 (def game-options ["Human vs. Human" "Human vs. Computer" "Computer vs. Human"])
 
 (def board-options ["3x3" "4x4"])
 
 (def players ["player 1" "player 2"])
+
+(def yes-no ["Yes!" "No"])
