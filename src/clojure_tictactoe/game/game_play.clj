@@ -1,46 +1,49 @@
 (ns clojure-tictactoe.game.game-play
-  (:require [clojure-tictactoe.cli.output.board-printer :as board-printer]
-            [clojure-tictactoe.cli.output.end-game-printer :as end-printer]
-            [clojure-tictactoe.cli.output.messages :as m]
-            [clojure-tictactoe.cli.input.input-getter :as input-getter]
+  (:require [clojure-tictactoe.cli.cli-controller :as cli]
             [clojure-tictactoe.game.board :as board]
             [clojure-tictactoe.game.game-rules :as rules]
             [clojure-tictactoe.game.players :as players]
-            [clojure-tictactoe.cli.cli-controller :as cli]
-            ))
+            [clojure-tictactoe.game.computer-opponent :as ai]))
+
+(defn get-player-functions [players]
+  (println players)
+  (if (some #(= :computer %) players)
+    [cli/get-player-move ai/get-move]
+    [cli/get-player-move cli/get-player-move]))
 
 (defn player-move [move-function board marker]
   (board/mark-space (move-function board marker) marker board))
 
-(defn move [board game-type markers turn]
-  (let [player-function (players/choose-player-function game-type turn)
-        marker (markers (players/current-player turn))
+(defn move [board player-turns markers turn]
+  (let [current-player (players/current-player turn)
+        player-function (player-turns current-player)
+        marker (markers current-player)
         new-board (player-move player-function board marker)]
     new-board))
 
-(defn game-loop [board game-type markers turn]
-  (board-printer/print-board board)
+(defn game-loop [board player-turns markers turn]
+  (cli/print-board board)
   (if-not (rules/game-over? board)
-    (let [new-board (move board game-type markers turn)]
-      (board-printer/print-board new-board)
-      (recur new-board game-type markers (inc turn)))
+    (let [new-board (move board player-turns markers turn)]
+      (recur new-board player-turns markers (inc turn)))
     (do
       (if-let [results (rules/assess-winner board)]
-      (end-printer/end-game-printer (end-printer/game-won-message results))
-      (end-printer/end-game-printer m/end-tie))
+      (cli/win results)
+      (cli/tie))
       (when (cli/restart?)
         (let [board-size (count board)
               fresh-board (board/render-empty-board board-size)
               turns-played (count (remove number? board))
               start-turn (- turn turns-played)]
-          (recur fresh-board game-type markers start-turn))))))
+          (recur fresh-board player-turns markers start-turn))))))
 
 (defn initialize-game []
   (cli/intro-game)
   (let [options (cli/game-options)
-        game-type (:game-type options)
+        players (:players options)
         board-size (:board-size options)
         board (board/render-empty-board board-size)
         turn (:turn options)
-        markers (:markers options)]
-    (game-loop board game-type markers turn)))
+        markers (:markers options)
+        player-turns (get-player-functions players)]
+    (game-loop board player-turns markers turn)))

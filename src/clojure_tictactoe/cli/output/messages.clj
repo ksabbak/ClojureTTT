@@ -2,11 +2,15 @@
 
 (defn print-new-line [] (println ""))
 
+(defn clear-screen []
+  (print (str (char 27) "[2J"))
+  (print (str (char 27) "[;H")))
+
 (def welcome-message
   "Welcome to the game of TicTacToe!")
 
 (def instructions-message
-  "Instructions: 2 players take turns placing markers,\n try to get three of your markers in a row to win! \n
+  "Instructions: 2 players take turns placing markers,\ntry to get three of your markers in a row to win! \n
 
 Examples:
 
@@ -16,7 +20,10 @@ Examples:
 ===+===+===  | ===+===+===  | ===+===+===
    | x |     |  x | x | x   |    | x |
 ===+===+===  | ===+===+===  | ===+===+===
-   | x |     |    |   |     |    |   | x   ")
+   | x |     |    |   |     |    |   | x   \n\n
+
+
+Type 'quit' at any point to quit the game.\n")
 
 (def instructions-what-marker
   "What marker would you like for ")
@@ -71,3 +78,4 @@ Examples:
 (def players ["player 1" "player 2"])
 
 (def yes-no ["Yes!" "No"])
+

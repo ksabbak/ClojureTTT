@@ -2,8 +2,6 @@
   (:require [clojure-tictactoe.cli.output.messages :as m]))
 
 (defn print-game-intro []
-  (m/print-new-line)
-  (m/print-new-line)
   (println m/welcome-message)
   (m/print-new-line)
   (m/print-new-line)
@@ -12,6 +10,7 @@
   (m/print-new-line))
 
 (defn print-marker-instructions [player]
+  (m/print-new-line)
   (println (str m/instructions-what-marker player "?")))
 
 (defn print-stringified-options [options]

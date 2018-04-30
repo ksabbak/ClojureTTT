@@ -21,3 +21,21 @@
       (testing "Returns zero when the human player plays first"
         (is (= 0 (get-first-turn "Human vs. Human")))
         (is (= 0 (get-first-turn "Human vs. Computer")))))))
+
+(testing "Game choice"
+  (testing "parse-game-choice"
+    (deftest parse-game-choice-test-with-computer
+      (testing "Returns [:human :computer] for both human vs. computer types"
+        (is (= [:human :computer] (parse-game-choice "Human vs. Computer")))
+        (is (= [:human :computer] (parse-game-choice "Computer vs. Human")))))
+
+    (deftest parse-game-choice-test-with-computer
+      (testing "Returns [:human :human] human only games"
+        (is (= [:human :human] (parse-game-choice "Human vs. Human")))))))
+
+(testing "Restart"
+  (testing "restart?"
+    (deftest restart?-test-yes
+      (is (true? (restart? "Yes!"))))
+    (deftest restart?-test-no
+      (is (false? (restart? "No"))))))

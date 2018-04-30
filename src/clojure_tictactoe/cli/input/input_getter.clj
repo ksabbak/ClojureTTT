@@ -60,6 +60,7 @@
           (recur board marker)))))
 
 (defn get-option-choice [options intro]
+  (m/print-new-line)
   (println intro)
   (instructions-printer/print-stringified-options options)
   (loop []

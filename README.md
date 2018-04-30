@@ -9,7 +9,7 @@
 
 ## Getting Started:
 
- 1. If you don’t already have Clojure installed, follow the instructions from (https://leiningen.org/)
+ 1. If you don’t already have Clojure installed, follow the instructions from (https://leiningen.org/) or `brew install clojure` and `brew install leiningen`.
  2. Download or clone this repo to your machine, navigate to the directory using your command line interface
 
 

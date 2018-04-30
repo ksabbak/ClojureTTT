@@ -1,4 +1,5 @@
-(ns clojure-tictactoe.game.computer-opponent
+(ns clojure-tictactoe.game.computer-opponent-test
+  (:require [clojure.test :refer :all]
             [clojure.string :as string]
             [clojure-tictactoe.helpers :as helper]
             [clojure-tictactoe.game.computer-opponent :refer :all]))
@@ -37,6 +38,7 @@
         (is (= 3 (get-move ["x" "x" "x" 3 "o" "o" 6 7 "o" 9 10 11 12 13 14 15] "o")))
         (is (= 12 (get-move ["x" 1 "o" 3 "x" "o" 6 "o" "x" 9 10 11 12 13 14 15] "o")))
         (is (= 10 (get-move ["x" 1 "o" 3 "o" "x" 6 "o" 8 9 10 11 12 13 14 "x"] "o")))
+        (is (= 3 (get-move [0 1 2 3 "o" "x" "x" "x" "o" "x" "o" 11 "x" 13 "o" 15] "o")))
         ))
 
     (deftest get-move-test-forks
@@ -44,7 +46,7 @@
         (is (some #(= (get-move ["x" 1 2 3 "o" 5 6 7 "x"] "o") %) [1 3 5 7]))
         (is (not (some #(= (get-move ["x" 1 2 3 "o" 5 6 "x" 8] "o") %) [1 2])))
         (is (some #(= (get-move ["x" 1 2 3 "x" 5 6 7 "o"] "o") %) [2 6]))
-        (is (some #(= (get-move [0 1 2 "o" 4 "x" "o" "o" 8 9 "x" "x" "o" "x" 14 15] "o") %) [1 8 9]))
+        (is (some #(= (let [move (get-move [0 1 2 "o" 4 "x" "o" "o" 8 9 "x" "x" "o" "x" 14 15] "o")] move) %) [1 8 9]))
         ))))
 
 (testing "Help with markers"

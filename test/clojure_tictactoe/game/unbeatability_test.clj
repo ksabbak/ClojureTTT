@@ -22,7 +22,7 @@
   (let [boards (map #(computer-simulator %) (human-simulator board))
         outcomes (map #(= human-marker (game-rules/winner? %)) boards)]
     (if (every? false? outcomes)
-      (let [new-boards (filter #(not (game-rules/game-over? %)) boards)]
+      (let [new-boards (remove #(game-rules/game-over? %) boards)]
         (map simulator new-boards)
           true)
       false)))
