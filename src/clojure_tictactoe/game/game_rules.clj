@@ -16,18 +16,22 @@
 (defn all-win-options [board]
   (concat (diagonal-win-options board) (vertical-win-options board) (horizontal-win-options board)))
 
+(def memo-all-win-options (memoize all-win-options))
+
 (defn potential-wins [board]
-  (map #(map board %) (all-win-options board)))
+  (map #(map board %) (memo-all-win-options (board/render-empty-board (count board)))))
+
+(def memo-potential-wins (memoize potential-wins))
 
 (defn winner? [board]
-  (some? (some #(apply = %) (potential-wins board))))
+  (some? (some #(apply = %) (memo-potential-wins board))))
 
 (defn assess-potential-wins [potential-wins]
   (when (apply = potential-wins) potential-wins))
 
 (defn assess-winner [board]
   (-> assess-potential-wins
-      (some (potential-wins board))
+      (some (memo-potential-wins board))
       (first)))
 
 (defn game-over? [board]

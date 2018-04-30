@@ -3,6 +3,7 @@
             [clojure.string :as string]
             [clojure-tictactoe.helpers :as helper]
             [clojure-tictactoe.cli.input.input-getter :refer :all]
+            [clojure-tictactoe.cli.output.messages :as m]
             [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]))
 
 (testing "General"
@@ -39,7 +40,7 @@
 
     (deftest get-option-choice-test-display
       (testing "Prints proper message"
-        (is (string/includes? (with-out-str (with-in-str "1" (get-option-choice ["Pie" "Cake" "Ice cream"] instructions-printer/game-choice-message))) instructions-printer/game-choice-message))
+        (is (string/includes? (with-out-str (with-in-str "1" (get-option-choice ["Pie" "Cake" "Ice cream"] m/game-choice-message))) m/game-choice-message))
         (is (string/includes? (with-out-str (with-in-str "1" (get-option-choice ["Pie" "Cake" "Ice cream"] "Pick a dessert"))) "1. Pie\n2. Cake\n3. Ice cream"))))
 
     (deftest get-option-choice-test-input
@@ -61,12 +62,12 @@
       (testing "Prints the right error message"
         (is (string/includes?
               (with-out-str (with-in-str (helper/make-input ["string" "9"]) (get-player-choice ["x" 1 2 3 4 5 6 7 8])))
-              "Sorry, that's not a valid space, try again\n")))))
+              m/sorry-space-invalid)))))
 
   (testing "get-player-move"
     (deftest get-player-move-test
       (testing "Doesn't accept taken input, does accept open space"
-        (is (= (with-in-str (helper/make-input ["1" "9"]) (get-player-move ["x" 1 2 3 4 5 6 7 8])) 8 ))))))
+        (is (= (with-in-str (helper/make-input ["1" "9"]) (get-player-move ["x" 1 2 3 4 5 6 7 8] "x")) 8 ))))))
 
 (testing "Player Markers"
 

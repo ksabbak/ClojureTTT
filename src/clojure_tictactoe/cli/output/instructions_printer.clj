@@ -1,41 +1,23 @@
-(ns clojure-tictactoe.cli.output.instructions-printer)
-
-(def welcome-message
-  "Welcome to the game of TicTacToe! \n")
-
-(def instructions-message
- "Instructions: 2 players take turns placing markers, try to get three of your markers in a row to win! \n
-
-Examples:
-
-  Vertical      Horizontal      Diagonal
-
-   | x |     |    |   |     |  x |   |
-===+===+===  | ===+===+===  | ===+===+===
-   | x |     |  x | x | x   |    | x |
-===+===+===  | ===+===+===  | ===+===+===
-   | x |     |    |   |     |    |   | x  \n\n ")
-
+(ns clojure-tictactoe.cli.output.instructions-printer
+  (:require [clojure-tictactoe.cli.output.messages :as m]))
 
 (defn print-game-intro []
-  (println welcome-message)
-  (println instructions-message))
+  (println m/welcome-message)
+  (m/print-new-line)
+  (m/print-new-line)
+  (println m/instructions-message)
+  (m/print-new-line)
+  (m/print-new-line))
 
 (defn print-marker-instructions [player]
-  (println (str "What marker would you like for " player "?")))
+  (m/print-new-line)
+  (println (str m/instructions-what-marker player "?")))
 
 (defn print-stringified-options [options]
+  (m/print-new-line)
   (->> options
        (map-indexed #(str (+ %1 1) ". " %2))
        (map println)
-       (dorun)))
-
-(def game-choice-message
-  "What kind of game would you like to play?\n")
-
-(def board-size-message
-  "What size board would you like to play on?\n")
-
-(def input-choice-request
-  "\nPlease enter the number that corresponds to your selection:")
+       (dorun))
+  (m/print-new-line))
 
