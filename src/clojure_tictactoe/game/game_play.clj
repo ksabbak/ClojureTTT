@@ -28,8 +28,8 @@
       (recur new-board player-turns markers (inc turn)))
     (do
       (if-let [results (rules/assess-winner board)]
-      (cli/win results)
-      (cli/tie))
+        (cli/win results)
+        (cli/tie))
       (when (cli/restart?)
         (let [board-size (count board)
               fresh-board (board/render-empty-board board-size)

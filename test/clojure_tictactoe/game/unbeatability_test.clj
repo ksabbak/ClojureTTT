@@ -24,7 +24,7 @@
     (if (every? false? outcomes)
       (let [new-boards (remove #(game-rules/game-over? %) boards)]
         (map simulator new-boards)
-          true)
+        true)
       false)))
 
 (deftest computer-is-unbeatable

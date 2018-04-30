@@ -8,7 +8,7 @@
 
 (defn get-board-size [choice]
   (let [side-length (read-string (str (first choice)))]
-        (* side-length side-length)))
+    (* side-length side-length)))
 
 (defn get-first-turn [game-type]
   (let [turns-start-at-one 1
@@ -31,7 +31,7 @@
 
 (defn restart? []
   (let [choice (input-getter/get-option-choice m/yes-no m/restart)
-      yes (first m/yes-no)]
+        yes (first m/yes-no)]
     (= yes choice)))
 
 (defn print-board [board]
@@ -49,9 +49,9 @@
 
 (defn game-options []
   (let [game-choice (input-getter/get-option-choice m/game-options m/game-choice-message)
-      players (parse-game-choice game-choice)
-      board-choice (input-getter/get-option-choice m/board-options m/board-size-message)
-      board-size (get-board-size board-choice)
-      turn (get-first-turn game-choice)
-      markers (input-getter/acquire-both-markers m/players)]
-  {:players players, :board-size board-size, :turn turn, :markers markers}))
+        players (parse-game-choice game-choice)
+        board-choice (input-getter/get-option-choice m/board-options m/board-size-message)
+        board-size (get-board-size board-choice)
+        turn (get-first-turn game-choice)
+        markers (input-getter/acquire-both-markers m/players)]
+    {:players players, :board-size board-size, :turn turn, :markers markers}))

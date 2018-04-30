@@ -18,13 +18,13 @@
       (testing "displays passed param"
         (is (string/includes? (with-out-str (print-marker-instructions "test")) "test?"))))))
 
-(testing "Stringify options"
-  (testing "print-stringified-options"
+(testing "Ordered list options"
+  (testing "print-ordered-list-options"
 
-    (deftest print-stringified-options-test-one
+    (deftest print-ordered-list-options-test-one
       (testing "Returns one option for a one item vector"
-        (is (= "\n1. one\n\n" (with-out-str (print-stringified-options ["one"]))))))
+        (is (= "\n1. one\n\n" (with-out-str (print-ordered-list-options ["one"]))))))
 
-    (deftest print-stringified-options-test-multiple
+    (deftest print-ordered-list-options-test-multiple
       (testing "Works on a vector with more than on item"
-        (is (= "\n1. one\n2. two\n3. three\n\n" (with-out-str (print-stringified-options ["one" "two" "three"]))))))))
+        (is (= "\n1. one\n2. two\n3. three\n\n" (with-out-str (print-ordered-list-options ["one" "two" "three"]))))))))

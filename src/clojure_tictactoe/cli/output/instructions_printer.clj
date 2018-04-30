@@ -13,7 +13,7 @@
   (m/print-new-line)
   (println (str m/instructions-what-marker player "?")))
 
-(defn print-stringified-options [options]
+(defn print-ordered-list-options [options]
   (m/print-new-line)
   (->> options
        (map-indexed #(str (+ %1 1) ". " %2))

@@ -46,8 +46,7 @@
         (is (some #(= (get-move ["x" 1 2 3 "o" 5 6 7 "x"] "o") %) [1 3 5 7]))
         (is (not (some #(= (get-move ["x" 1 2 3 "o" 5 6 "x" 8] "o") %) [1 2])))
         (is (some #(= (get-move ["x" 1 2 3 "x" 5 6 7 "o"] "o") %) [2 6]))
-        (is (some #(= (let [move (get-move [0 1 2 "o" 4 "x" "o" "o" 8 9 "x" "x" "o" "x" 14 15] "o")] move) %) [1 8 9]))
-        ))))
+        (is (some #(= (let [move (get-move [0 1 2 "o" 4 "x" "o" "o" 8 9 "x" "x" "o" "x" 14 15] "o")] move) %) [1 8 9]))))))
 
 (testing "Help with markers"
 

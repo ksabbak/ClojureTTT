@@ -31,7 +31,7 @@
     (if (input-checker/acceptable-marker-option? choice)
       choice
       (do (m/print-new-line)
-        (println m/sorry-token-char)
+          (println m/sorry-token-char)
           (recur player)))))
 
 (defn acquire-both-markers [players]
@@ -62,7 +62,7 @@
 (defn get-option-choice [options intro]
   (m/print-new-line)
   (println intro)
-  (instructions-printer/print-stringified-options options)
+  (instructions-printer/print-ordered-list-options options)
   (loop []
     (println m/input-choice-request)
     (let [choice (format-input (get-user-input))]
