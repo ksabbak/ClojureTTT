@@ -3,6 +3,7 @@
             [clojure.string :as string]
             [clojure-tictactoe.helpers :as helper]
             [clojure-tictactoe.cli.input.input-getter :refer :all]
+            [clojure-tictactoe.cli.output.messages :as m]
             [clojure-tictactoe.cli.output.instructions-printer :as instructions-printer]))
 
 (testing "General"
@@ -35,16 +36,16 @@
       (testing "The function returns nil once newline has been entered"
         (is (nil? (with-in-str "\n" (continue-to-game)))))))
 
-  (testing "get-game-type"
+  (testing "get-option-choice"
 
-    (deftest get-game-type-test-display
+    (deftest get-option-choice-test-display
       (testing "Prints proper message"
-        (is (string/includes? (with-out-str (with-in-str "1" (get-game-type ["Pie" "Cake" "Ice cream"]))) instructions-printer/game-choice-message))
-        (is (string/includes? (with-out-str (with-in-str "1" (get-game-type ["Pie" "Cake" "Ice cream"]))) "1. Pie\n2. Cake\n3. Ice cream"))))
+        (is (string/includes? (with-out-str (with-in-str "1" (get-option-choice ["Pie" "Cake" "Ice cream"] m/game-choice-message))) m/game-choice-message))
+        (is (string/includes? (with-out-str (with-in-str "1" (get-option-choice ["Pie" "Cake" "Ice cream"] "Pick a dessert"))) "1. Pie\n2. Cake\n3. Ice cream"))))
 
-    (deftest get-game-type-test-input
+    (deftest get-option-choice-test-input
       (testing "Doesn't accept input that isn't 1 or 2"
-        (is (= (with-in-str (helper/make-input ["Alpha chars" "#" "3" "" "2"]) (get-game-type ["Cake" "Pie"])) "Pie"))))))
+        (is (= (with-in-str (helper/make-input ["Alpha chars" "#" "3" "" "2"]) (get-option-choice ["Cake" "Pie"] "Cake or pie?")) "Pie"))))))
 
 
 (testing "Player moves"
@@ -52,7 +53,7 @@
   (testing "get-player-choice"
 
     (deftest get-player-choice-test
-      (testing "Good move input returns that input as an integer, but one less"
+      (testing "Good choice input returns that input as an integer, but one less"
         (is (= (with-in-str "1" (get-player-choice ["x" 1 2 3 4 5 6 7 8])) 0))))
 
     (deftest get-player-choice-test-bad-arguments
@@ -61,12 +62,12 @@
       (testing "Prints the right error message"
         (is (string/includes?
               (with-out-str (with-in-str (helper/make-input ["string" "9"]) (get-player-choice ["x" 1 2 3 4 5 6 7 8])))
-              "Sorry, that's not a valid space, try again\n")))))
+              m/sorry-space-invalid)))))
 
   (testing "get-player-move"
     (deftest get-player-move-test
       (testing "Doesn't accept taken input, does accept open space"
-        (is (= (with-in-str (helper/make-input ["1" "9"]) (get-player-move ["x" 1 2 3 4 5 6 7 8])) 8 ))))))
+        (is (= (with-in-str (helper/make-input ["1" "9"]) (get-player-move ["x" 1 2 3 4 5 6 7 8] "x")) 8 ))))))
 
 (testing "Player Markers"
 

@@ -1,9 +1,8 @@
-(ns clojure-tictactoe.cli.output.end-game-printer)
-
-(def game-tie-message "Game over! It's a tie.")
+(ns clojure-tictactoe.cli.output.end-game-printer
+  (:require [clojure-tictactoe.cli.output.messages :as m]))
 
 (defn game-won-message [winner]
-  (str "Congratulations to player " winner "! You won!"))
+  (str m/end-congrats winner m/end-won))
 
 (defn end-game-printer [message]
   (println message))

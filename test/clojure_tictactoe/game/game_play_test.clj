@@ -9,3 +9,4 @@
 (deftest player-move-test-good-argument
   (testing "Accepts good player move"
     (is (= (player-move (fn [& args] 8) [0 1 2 3 4 5 6 7 8] "x") [0 1 2 3 4 5 6 7 "x"]))))
+
